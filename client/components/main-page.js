@@ -1,26 +1,46 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import {fetchFlashcards} from '../store'
+import { Card } from 'semantic-ui-react'
 
 /**
  * COMPONENT
  */
-export const MainPage = props => {
-  const flashcards = props.getFlashcards();
-  console.log('flashcards in here ', flashcards);
-  return (
-    <div>
-      <h3>FLASHCARDS WILL BE IN HERE</h3>
-    </div>
-  )
+class MainPage extends React.Component {
+  constructor(props){
+    super(props)
+  }
+
+  componentDidMount() {
+    this.props.getFlashcards();
+  }
+
+    render () {
+      const { flashcards } = this.props;
+      console.log('flashcards ', flashcards);
+      return (
+        <div>
+          <h1>FLASHCARDS UP IN HURRRRR</h1>
+          {flashcards.map(flashcard =>
+              <Card key={flashcard.id}>
+                <Card.Content>
+                  <Card.Header>{flashcard.question}</Card.Header>
+                  <Card.Description>{flashcard.answer}</Card.Description>
+                </Card.Content>
+              </Card>
+            )}
+        </div>
+      )
+    }
 }
 
 /**
  * CONTAINER
  */
 const mapState = state => {
-  console.log('state ', state);
-  return {}
+  return {
+    flashcards: state.flashcards
+  }
 }
 
 const mapDispatch = dispatch => {
