@@ -9,7 +9,11 @@ const flashcardData = [
   },
   {
     question: 'What is closure?',
-    answer: 'A closure is the combination of a function and the lexical environment within which that function was declared. '
+    answer: 'A closure is the combination of a function and the lexical environment within which that function was declared.'
+  },
+  {
+    question: 'Explain Function.prototype.bind',
+    answer: 'The bind() method creates a new function that, when called, has its this keyword set to the provided value, with a given sequence of arguments preceding any provided when the new function is called.'
   },
 ]
 

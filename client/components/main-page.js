@@ -30,10 +30,18 @@ class MainPage extends React.Component {
 
   goToNextCardClick = () => {
     let newCount = 0;
-    console.log('state count ', this.state.count);
-    console.log('length ', this.props.flashcards.length);
     if(this.state.count < this.props.flashcards.length - 1) {
       newCount = this.state.count + 1;
+    } else {
+      newCount = 0;
+    }
+    this.setState({count: newCount});
+  }
+
+  goToPrevCardClick = () => {
+    let newCount = 0;
+    if(this.state.count > 0) {
+      newCount = this.state.count - 1;
     } else {
       newCount = 0;
     }
@@ -50,12 +58,21 @@ class MainPage extends React.Component {
       margin: '0 auto',
       textAlign: 'center'
     };
+    const cardStyle = {
+      width: '50%',
+      margin: 'auto auto',
+      textAlign: 'center'
+    };
+    const buttonStyle = {
+      paddng: '50px',
+      margin: '10px',
+    }
     return (
       <div style={divStyle}>
         {flashcards.length && count < flashcards.length?
           <div>
             <h1>FLASHCARDS UP IN HURRRRR</h1>
-            <div style={divStyle}>
+            <div style={cardStyle}>
               <Card key={flashcards[count].id} onClick={this.toggleDescriptionClick}>
                 <Card.Content>
                   <Card.Header>{flashcards[count].question}</Card.Header>
@@ -66,7 +83,9 @@ class MainPage extends React.Component {
           </div>
           : null
         }
-        <button onClick={this.goToNextCardClick}>NEXT CARD</button>
+        <br />
+        <button style={buttonStyle} onClick={this.goToPrevCardClick}>PREV CARD</button>
+        <button style={buttonStyle} onClick={this.goToNextCardClick}>NEXT CARD</button>
       </div>
     )
   }
