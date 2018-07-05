@@ -1,8 +1,7 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import {fetchFlashcards} from '../store'
-import { Card } from 'semantic-ui-react'
-import flashcard from '../store/flashcard';
+import { Card, TextArea, Form, Button, Message } from 'semantic-ui-react'
 
 /**
  * COMPONENT
@@ -72,7 +71,7 @@ class MainPage extends React.Component {
 
   render () {
     const { flashcards } = this.props;
-    const {count} = this.state;
+    const {count, inputCheck} = this.state;
     const divStyle = {
       top: '50%',
       left: '50%',
@@ -94,6 +93,8 @@ class MainPage extends React.Component {
         {flashcards.length && count < flashcards.length?
           <div>
             <h1>FLASHCARDS UP IN HURRRRR</h1>
+            <br />
+            <br />
             <div style={cardStyle}>
               <Card key={flashcards[count].id} onClick={this.toggleDescriptionClick}>
                 <Card.Content>
@@ -105,20 +106,32 @@ class MainPage extends React.Component {
             <br />
             <br />
             <div>
-              <form onSubmit={this.handleSubmit}>
-                <input type="text" placeholder="Type in answer here" value={this.state.input} onChange={this.handleChange}/>
-                <button type="submit">SUBMIT</button>
-              </form>
+              {inputCheck.length ?
+                inputCheck === "You Got It!" ?
+                <Message positive>
+                  <Message.Header>You Got It!</Message.Header>
+                </Message> :
+                <Message negative>
+                  <Message.Header>Not Quite, Try Again!</Message.Header>
+                </Message>
+              : null}
             </div>
+            <br />
+            <br />
             <div>
-              {this.state.inputCheck.length ? <p>{this.state.inputCheck}</p>: null}
+              <Form onSubmit={this.handleSubmit}>
+                <TextArea type="text" placeholder="Type in answer here" value={this.state.input} onChange={this.handleChange}/>
+                <br />
+                <br />
+                <Button type="submit" content="Submit" color="green"/>
+              </Form>
             </div>
           </div>
           : null
         }
         <br />
-        <button style={buttonStyle} value="prevClick" onClick={(evt) => this.goToCardClick(evt)}>PREV CARD</button>
-        <button style={buttonStyle} value="nextClick" onClick={(evt) => this.goToCardClick(evt)}>NEXT CARD</button>
+        <Button value="prevClick" onClick={(evt) => this.goToCardClick(evt)} content='Prev Card' icon='left arrow' labelPosition='left' />
+        <Button value="nextClick" onClick={(evt) => this.goToCardClick(evt)} content='Next Card' icon='right arrow' labelPosition='right' />
       </div>
     )
   }
