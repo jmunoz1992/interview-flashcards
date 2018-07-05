@@ -31,25 +31,15 @@ class MainPage extends React.Component {
     }
   }
 
-  goToNextCardClick = () => {
+  goToCardClick = (evt) => {
+    const typeOfCard = evt.target.value;
+    const {count} = this.state;
+    const {flashcards} = this.props;
     let newCount = 0;
-    if(this.state.count < this.props.flashcards.length - 1) {
-      newCount = this.state.count + 1;
-    } else {
-      newCount = 0;
-    }
-    this.setState({
-      count: newCount,
-      inputCheck: "",
-      input: "",
-      active: false,
-    });
-  }
-
-  goToPrevCardClick = () => {
-    let newCount = 0;
-    if(this.state.count > 0) {
-      newCount = this.state.count - 1;
+    if(typeOfCard === "nextClick" && count < flashcards.length - 1) {
+      newCount = count + 1;
+    } else if(typeOfCard === "prevClick" && count > 0) {
+      newCount = count - 1;
     } else {
       newCount = 0;
     }
@@ -127,8 +117,8 @@ class MainPage extends React.Component {
           : null
         }
         <br />
-        <button style={buttonStyle} onClick={() =>this.goToPrevCardClick}>PREV CARD</button>
-        <button style={buttonStyle} onClick={this.goToNextCardClick}>NEXT CARD</button>
+        <button style={buttonStyle} value="prevClick" onClick={(evt) => this.goToCardClick(evt)}>PREV CARD</button>
+        <button style={buttonStyle} value="nextClick" onClick={(evt) => this.goToCardClick(evt)}>NEXT CARD</button>
       </div>
     )
   }
