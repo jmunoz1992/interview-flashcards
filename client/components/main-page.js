@@ -2,6 +2,7 @@ import React from 'react'
 import {connect} from 'react-redux'
 import {fetchFlashcards} from '../store'
 import { Card } from 'semantic-ui-react'
+import flashcard from '../store/flashcard';
 
 /**
  * COMPONENT
@@ -12,6 +13,8 @@ class MainPage extends React.Component {
     this.state = {
       active: false,
       count: 0,
+      input: "",
+      inputCheck: "",
     }
   }
 
@@ -35,7 +38,12 @@ class MainPage extends React.Component {
     } else {
       newCount = 0;
     }
-    this.setState({count: newCount});
+    this.setState({
+      count: newCount,
+      inputCheck: "",
+      input: "",
+      active: false,
+    });
   }
 
   goToPrevCardClick = () => {
@@ -45,7 +53,31 @@ class MainPage extends React.Component {
     } else {
       newCount = 0;
     }
-    this.setState({count: newCount});
+    this.setState({
+      count: newCount,
+      inputCheck: "",
+      input: "",
+      active: false,
+    });
+  }
+
+  handleChange = (evt) => {
+    this.setState({input: evt.target.value});
+  }
+
+  handleSubmit = (evt) => {
+    evt.preventDefault();
+    const userInput = this.state.input;
+    const flashcardAnswer = this.props.flashcards[this.state.count].answer;
+    if(this.checkAnswers(userInput, flashcardAnswer)) {
+      this.setState({inputCheck: "You Got It!"});
+    } else {
+      this.setState({inputCheck: "Not Quite, Try Again!"});
+    }
+  }
+
+  checkAnswers = (userInput, flashcardAnswer) => {
+    return userInput === flashcardAnswer;
   }
 
   render () {
@@ -80,11 +112,22 @@ class MainPage extends React.Component {
                 </Card.Content>
               </Card>
             </div>
+            <br />
+            <br />
+            <div>
+              <form onSubmit={this.handleSubmit}>
+                <input type="text" placeholder="Type in answer here" value={this.state.input} onChange={this.handleChange}/>
+                <button type="submit">SUBMIT</button>
+              </form>
+            </div>
+            <div>
+              {this.state.inputCheck.length ? <p>{this.state.inputCheck}</p>: null}
+            </div>
           </div>
           : null
         }
         <br />
-        <button style={buttonStyle} onClick={this.goToPrevCardClick}>PREV CARD</button>
+        <button style={buttonStyle} onClick={() =>this.goToPrevCardClick}>PREV CARD</button>
         <button style={buttonStyle} onClick={this.goToNextCardClick}>NEXT CARD</button>
       </div>
     )
