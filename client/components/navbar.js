@@ -3,23 +3,29 @@ import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
 import {logout} from '../store'
+import { StatisticLabel } from '../../node_modules/semantic-ui-react';
 
-const Navbar = ({handleClick, isLoggedIn}) => (
+const Navbar = ({handleClick, isLoggedIn, user}) => (
   <div>
     <nav>
       {isLoggedIn ? (
-        <div>
+        <div id="full-nav">
           {/* The navbar will show these links after you log in */}
-          <Link to="/home">Home</Link>
-          <a href="#" onClick={handleClick}>
-            Logout
-          </a>
+          <div id="left-nav">
+            <Link to="/">Home</Link>
+          </div>
+          <div id="right-nav">
+            <h3 id="welcome-email">Welcome {user.email}</h3>
+            <a href="#" onClick={handleClick}>
+              Logout
+            </a>
+          </div>
         </div>
       ) : (
         <div>
           {/* The navbar will show these links before you log in */}
+          <Link to="/">Home</Link>
           <Link to="/login">Login</Link>
-          <Link to="/signup">Sign Up</Link>
         </div>
       )}
     </nav>
@@ -32,7 +38,8 @@ const Navbar = ({handleClick, isLoggedIn}) => (
  */
 const mapState = state => {
   return {
-    isLoggedIn: !!state.user.id
+    isLoggedIn: !!state.user.id,
+    user: state.user,
   }
 }
 

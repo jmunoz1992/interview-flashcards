@@ -19,3 +19,30 @@ form div {
   margin: 1em;
   display: inline-block;
 }
+
+#login-form {
+  display: block;
+  margin: 0 auto;
+  width: 50%;
+  text-align: center;
+  font-size: 2em;
+}
+
+#full-nav {
+  display: flex;
+}
+
+#left-nav {
+ flex-grow: 30;
+}
+
+#right-nav {
+  flex-grow: 1;
+  vertical-align: middle;
+  text-align: center;
+}
+
+#welcome-email {
+  margin-top: 15px;
+  display: inline;
+}
