@@ -63,6 +63,38 @@ const flashcardData = [
     question: `Explain Function.prototype.bind`,
     answer: 'The bind() method creates a new function that, when called, has its this keyword set to the provided value, with a given sequence of arguments preceding any provided when the new function is called.'
   },
+  {
+    question: `When would you use document.write()`,
+    answer: 'document.write() writes a string of text to a document stream opened by document.open(). When document.write() is executed after the page has loaded, it will call document.open which clears the whole document (<head> and <body> removed!) and replaces the contents with the given parameter value. Hence it is usually considered dangerous and prone to misuse.'
+  },
+  {
+    question: `What's the difference between feature detection, feature inference, and using the UA string?`,
+    answer: `Feature detection involves working out whether a browser supports a certain block of code, and running different code depending on whether it does (or doesn't), so that the browser can always provide a working experience rather crashing/erroring in some browsers.
+
+    Feature inference checks for a feature just like feature detection, but uses another function because it assumes it will also exist.
+
+    This is a browser-reported string that allows the network protocol peers to identify the application type, operating system, software vendor or software version of the requesting software user agent. It can be accessed via navigator.userAgent. However, the string is tricky to parse and can be spoofed. `
+  },
+  {
+    question: `Explain Ajax in as much detail as possible.`,
+    answer: `Ajax (asynchronous JavaScript and XML) is a set of web development techniques using many web technologies on the client side to create asynchronous web applications. With Ajax, web applications can send data to and retrieve from a server asynchronously (in the background) without interfering with the display and behavior of the existing page. By decoupling the data interchange layer from the presentation layer, Ajax allows for web pages, and by extension web applications, to change content dynamically without the need to reload the entire page. In practice, modern implementations commonly substitute use JSON instead of XML, due to the advantages of JSON being native to JavaScript.`
+  },
+  {
+    question: `What are the advantages and disadvantages of using Ajax?`,
+    answer: `Advantages: Better interactivity. New content from the server can be changed dynamically without the need to reload the entire page. Reduce connections to the server since scripts and stylesheets only have to be requested once. State can be maintained on a page. JavaScript variables and DOM state will persist because the main container page was not reloaded. Basically most of the advantages of an SPA.
+
+    Disadvantages: Dynamic webpages are harder to bookmark. Does not work if JavaScript has been disabled in the browser. Some webcrawlers do not execute JavaScript and would not see content that has been loaded by JavaScript. Basically most of the disadvantages of a SPA.`
+  },
+  {
+    question: `Explain how JSONP works (and how it's not really Ajax).`,
+    answer: `JSONP (JSON with Padding) is a method commonly used to bypass the cross-domain policies in web browsers because Ajax requests from the current page to a cross-origin domain is not allowed.
+
+    JSONP works by making a request to a cross-origin domain via a <script> tag and usually with a callback query parameter, for example: https://example.com?callback=printData. The server will then wrap the data within a function called printData and return it to the client.`
+  },
+  {
+    question: `Explain "hoisting"`,
+    answer: `Hoisting is a term used to explain the behavior of variable declarations in your code. Variables declared or initialized with the var keyword will have their declaration "moved" up to the top of the current scope, which we refer to as hoisting. However, only the declaration is hoisted, the assignment (if there is one), will stay where it is.`
+  },
 ]
 
 const userData = [
