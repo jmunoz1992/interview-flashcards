@@ -17,7 +17,7 @@ const flashcardData = [
     answer: `
       1. If the new keyword is used when calling the function, this inside the function is a brand new object.
       2. If apply, call, or bind are used to call/create a function, this inside the function is the object that is passed in as the argument.
-      3. If a function is called as a method, such as obj.method() — this is the object that the function is a property of.
+      3. If a function is called as a method, such as obj.method()—this is the object that the function is a property of.
       4. If a function is invoked as a free function invocation, meaning it was invoked without any of the conditions present above, this is the global object. In a browser, it is the window object. If in strict mode ('use strict'), this will be undefined instead of the global object.
       5. If multiple of the above rules apply, the rule that is higher wins and will set the this value.
       6. If the function is an ES2015 arrow function, it ignores all the rules above and receives the this value of its surrounding scope at the time it is created.
@@ -94,6 +94,45 @@ const flashcardData = [
   {
     question: `Explain "hoisting"`,
     answer: `Hoisting is a term used to explain the behavior of variable declarations in your code. Variables declared or initialized with the var keyword will have their declaration "moved" up to the top of the current scope, which we refer to as hoisting. However, only the declaration is hoisted, the assignment (if there is one), will stay where it is.`
+  },
+  {
+    question: `Describe event bubbling`,
+    answer: `When an event triggers on a DOM element, it will attempt to handle the event if there is a listener attached, then the event is bubbled up to its parent and the same thing happens. This bubbling occurs up the element's ancestors all the way to the document. Event bubbling is the mechanism behind event delegation.`
+  },
+  {
+    question: `What's the difference between an "attribute" and a "property"?`,
+    answer: `Attributes are defined on the HTML markup but properties are defined on the DOM. `
+  },
+  {
+    question: `Why is extending built-in JavaScript objects not a good idea?`,
+    answer: `Extending a built-in/native JavaScript object means adding properties/functions to its prototype. While this may seem like a good idea at first, it is dangerous in practice. Imagine your code uses a few libraries that both extend the Array.prototype by adding the same contains method, the implementations will overwrite each other and your code will break if the behavior of these two methods is not the same.
+
+    The only time you may want to extend a native object is when you want to create a polyfill, essentially providing your own implementation for a method that is part of the JavaScript specification but might not exist in the user's browser due to it being an older browser.`
+  },
+  {
+    question: `Difference between document load event and document DOMContentLoaded event?`,
+    answer: `
+    The DOMContentLoaded event is fired when the initial HTML document has been completely loaded and parsed, without waiting for stylesheets, images, and subframes to finish loading.
+
+    window's load event is only fired after the DOM and all dependent resources and assets have loaded.`
+  },
+  {
+    question: `What is the difference between == and ===?`,
+    answer: `== is the abstract equality operator while === is the strict equality operator. The == operator will compare for equality after doing any necessary type conversions. The === operator will not do type conversion, so if two values are not the same type === will simply return false. `
+  },
+  {
+    question: `Explain the same-origin policy with regards to JavaScript.`,
+    answer: `The same-origin policy prevents JavaScript from making requests across domain boundaries. An origin is defined as a combination of URI scheme, hostname, and port number. This policy prevents a malicious script on one page from obtaining access to sensitive data on another web page through that page's Document Object Model.`
+  },
+  {
+    question: `Why is it called a Ternary expression, what does the word "Ternary" indicate?`,
+    answer: `Ternary indicates three, and a ternary expression accepts three operands, the test condition, the "then" expression and the "else" expression. Ternary expressions are not specific to JavaScript and I'm not sure why it is even in this list.`
+  },
+  {
+    question: `What is "use strict";? What are the advantages and disadvantages to using it?`,
+    answer: `'use strict' is a statement used to enable strict mode to entire scripts or individual functions. Strict mode is a way to opt into a restricted variant of JavaScript. Advantages: Makes it impossible to accidentally create global variables. Makes assignments which would otherwise silently fail to throw an exception. Makes attempts to delete undeletable properties throw (where before the attempt would simply have no effect). Requires that function parameter names be unique.
+    this is undefined in the global context. It catches some common coding bloopers, throwing exceptions. It disables features that are confusing or poorly thought out.
+    Disadvantages: Many missing features that some developers might be used to. No more access to function.caller and function.arguments. Concatenation of scripts written in different strict modes might cause issues.`
   },
 ]
 
