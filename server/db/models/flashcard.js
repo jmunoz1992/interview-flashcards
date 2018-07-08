@@ -10,6 +10,9 @@ const Flashcard = db.define('flashcard', {
   answer: {
     type: Sequelize.TEXT,
   },
+  type: {
+    type: Sequelize.STRING,
+  }
 })
 
 module.exports = Flashcard

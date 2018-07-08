@@ -14,10 +14,19 @@ async function seed() {
 
   await Promise.all([userP, frontendFlashcard, packP]);
 
-  const frontendFlashcards = await Flashcard.findAll();
+  const frontendFlashcards = await Flashcard.findAll({
+    where: {
+      type: 'frontend'
+    }
+  });
+  const frontendPack = await Pack.findOne({
+    where: {
+      name: 'frontend'
+    }
+  })
 
   await Promise.all(frontendFlashcards.map(flashcard => {
-    return flashcard.setPack(1);
+    return flashcard.setPack(frontendPack.id);
   }))
 
   console.log(`seeded successfully`)
