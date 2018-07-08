@@ -1,4 +1,4 @@
-const flashcardData = [
+const frontendFlashcardData = [
   {
     question: 'Test Question?',
     answer: 'Test Answer'
@@ -136,6 +136,12 @@ const flashcardData = [
   },
 ]
 
+const packData = [
+  {
+    name: 'FrontEnd',
+  }
+]
+
 const userData = [
   {email: 'cody@email.com', password: '123', isAdmin: false},
   {email: 'murphy@email.com', password: '123', isAdmin: false},
@@ -143,6 +149,7 @@ const userData = [
 ]
 
 module.exports = {
-  flashcardData,
-  userData
+  frontendFlashcardData,
+  userData,
+  packData
 }

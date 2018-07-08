@@ -1,17 +1,24 @@
 'use strict'
 
 const db = require('../server/db')
-const {User, Flashcard} = require('../server/db/models')
-const {flashcardData, userData} = require('./seed-data');
+const {User, Flashcard, Pack} = require('../server/db/models')
+const {frontendFlashcardData, userData, packData} = require('./seed-data');
 
 async function seed() {
   await db.sync({force: true})
   console.log('db synced!')
 
   const userP = User.bulkCreate(userData, { individualHooks: true }) // must hit salting
-  const flashcardP = Flashcard.bulkCreate(flashcardData)
+  const frontendFlashcard = Flashcard.bulkCreate(frontendFlashcardData)
+  const packP = Pack.bulkCreate(packData);
 
-  await Promise.all([userP, flashcardP]);
+  await Promise.all([userP, frontendFlashcard, packP]);
+
+  const frontendFlashcards = await Flashcard.findAll();
+
+  await Promise.all(frontendFlashcards.map(flashcard => {
+    return flashcard.setPack(1);
+  }))
 
   console.log(`seeded successfully`)
 }
