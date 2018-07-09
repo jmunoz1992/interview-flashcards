@@ -21,7 +21,7 @@ async function seed() {
   });
   const frontendPack = await Pack.findOne({
     where: {
-      name: 'frontend'
+      name: 'Frontend'
     }
   })
 
