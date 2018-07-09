@@ -72,6 +72,14 @@ class AllFlashcards extends React.Component {
 
   render () {
     const { flashcards, chosenPack } = this.props;
+    let filteredFlashcards;
+    if(flashcards.length) {
+      filteredFlashcards = flashcards.filter(flashcard => {
+          if(flashcard.type.toLowerCase() === chosenPack.name.toLowerCase()) {
+            return flashcard;
+          }
+        })
+    }
     const {count, inputCheck, input} = this.state;
     const divStyle = {
       width: '50%',
@@ -84,16 +92,16 @@ class AllFlashcards extends React.Component {
     };
     return (
       <div style={divStyle}>
-        {flashcards.length && count < flashcards.length && chosenPack?
+        <h1>{chosenPack.name} Flashcards</h1>
+        {filteredFlashcards && count < filteredFlashcards.length && chosenPack?
           <div>
-            <h1>{chosenPack.name} Flashcards</h1>
             <br />
             <br />
             <div style={cardStyle}>
-              <Card key={flashcards[count].id} onClick={this.toggleDescriptionClick}>
+              <Card key={filteredFlashcards[count].id} onClick={this.toggleDescriptionClick}>
                 <Card.Content>
-                  <Card.Header>{flashcards[count].question}</Card.Header>
-                  {this.state.active ? <Card.Description>{flashcards[count].answer}</Card.Description> : null}
+                  <Card.Header>{filteredFlashcards[count].question}</Card.Header>
+                  {this.state.active ? <Card.Description>{filteredFlashcards[count].answer}</Card.Description> : null}
                 </Card.Content>
               </Card>
             </div>
@@ -121,12 +129,13 @@ class AllFlashcards extends React.Component {
                 <Button type="submit" content="Submit" color="green"/>
               </Form>
             </div>
+            <br />
+            <Button value="prevClick" onClick={(evt) => this.goToCardClick(evt)} content='Prev Card' icon='left arrow' labelPosition='left' />
+            <Button value="nextClick" onClick={(evt) => this.goToCardClick(evt)} content='Next Card' icon='right arrow' labelPosition='right' />
+            <br />
           </div>
-          : null
+          : <h2>There are currently no flashcards in this pack</h2>
         }
-        <br />
-        <Button value="prevClick" onClick={(evt) => this.goToCardClick(evt)} content='Prev Card' icon='left arrow' labelPosition='left' />
-        <Button value="nextClick" onClick={(evt) => this.goToCardClick(evt)} content='Next Card' icon='right arrow' labelPosition='right' />
       </div>
     )
   }
