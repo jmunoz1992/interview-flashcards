@@ -16,7 +16,8 @@ describe('Flashcard model', () => {
       beforeEach(async () => {
         flashcard = await Flashcard.create({
           question: 'What is closure?',
-          answer: 'A closure is the combination of a function and the lexical environment within which that function was declared. '
+          answer: 'A closure is the combination of a function and the lexical environment within which that function was declared. ',
+          type: 'frontend'
         })
       })
 
@@ -26,6 +27,10 @@ describe('Flashcard model', () => {
 
       it('returns the correct password', () => {
         expect(flashcard.answer).to.be.equal('A closure is the combination of a function and the lexical environment within which that function was declared. ');
+      })
+
+      it('returns the correct type', () => {
+        expect(flashcard.type).to.be.equal('frontend');
       })
     }) // end describe('correctPassword')
   }) // end describe('instanceMethods')

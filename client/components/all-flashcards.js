@@ -6,7 +6,7 @@ import { Card, TextArea, Form, Button, Message } from 'semantic-ui-react'
 /**
  * COMPONENT
  */
-class MainPage extends React.Component {
+class AllFlashcards extends React.Component {
   constructor(props){
     super(props);
     this.state = {
@@ -71,7 +71,7 @@ class MainPage extends React.Component {
   }
 
   render () {
-    const { flashcards } = this.props;
+    const { flashcards, chosenPack } = this.props;
     const {count, inputCheck, input} = this.state;
     const divStyle = {
       width: '50%',
@@ -84,9 +84,9 @@ class MainPage extends React.Component {
     };
     return (
       <div style={divStyle}>
-        {flashcards.length && count < flashcards.length ?
+        {flashcards.length && count < flashcards.length && chosenPack?
           <div>
-            <h1>FLASHCARDS UP IN HURRRRR</h1>
+            <h1>{chosenPack.name} Flashcards</h1>
             <br />
             <br />
             <div style={cardStyle}>
@@ -136,8 +136,11 @@ class MainPage extends React.Component {
  * CONTAINER
  */
 const mapState = state => {
+  const packNum = +(window.location.pathname.split('/')[2]);
+  const chosenPack = state.packs.filter(pack => pack.id === packNum)[0];
   return {
-    flashcards: state.flashcards
+    flashcards: state.flashcards,
+    chosenPack
   }
 }
 
@@ -149,4 +152,4 @@ const mapDispatch = dispatch => {
   }
 }
 
-export default connect(mapState, mapDispatch)(MainPage)
+export default connect(mapState, mapDispatch)(AllFlashcards)

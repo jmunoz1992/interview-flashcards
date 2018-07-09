@@ -6,4 +6,5 @@
 export {default as Navbar} from './navbar'
 export {default as UserHome} from './user-home'
 export {Login, Signup} from './auth-form'
-export {default as MainPage} from './main-page'
+export {default as AllFlashcards} from './all-flashcards'
+export {default as AllPacks} from './all-packs'

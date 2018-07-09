@@ -164,6 +164,18 @@ const frontendFlashcardData = [
 const packData = [
   {
     name: 'frontend',
+  },
+  {
+    name: 'react',
+  },
+  {
+    name: 'redux',
+  },
+  {
+    name: 'express',
+  },
+  {
+    name: 'sequelize',
   }
 ]
 
