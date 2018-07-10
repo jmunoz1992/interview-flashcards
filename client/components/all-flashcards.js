@@ -1,7 +1,7 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {fetchFlashcards} from '../store'
-import { Card, TextArea, Form, Button, Message } from 'semantic-ui-react'
+import {fetchFlashcards, postFlashcard} from '../store'
+import { Card, TextArea, Form, Button, Message, Modal, Input } from 'semantic-ui-react'
 
 /**
  * COMPONENT
@@ -70,6 +70,19 @@ class AllFlashcards extends React.Component {
     return userInput === flashcardAnswer;
   }
 
+  submitNewFlashcard = (evt) => {
+    evt.preventDefault();
+    console.log('getting in this submit new flashcard ', evt.target.question.value, evt.target.answer.value);
+    const question = evt.target.question.value;
+    const answer = evt.target.answer.value;
+    const type = this.props.chosenPack.name;
+    this.props.addFlashcard({
+      question,
+      answer,
+      type
+    })
+  }
+
   render () {
     const { flashcards, chosenPack } = this.props;
     let filteredFlashcards;
@@ -93,49 +106,65 @@ class AllFlashcards extends React.Component {
     return (
       <div style={divStyle}>
         <h1>{chosenPack.name} Flashcards</h1>
-        {filteredFlashcards && count < filteredFlashcards.length && chosenPack?
-          <div>
-            <br />
-            <br />
-            <div style={cardStyle}>
-              <Card key={filteredFlashcards[count].id} onClick={this.toggleDescriptionClick}>
-                <Card.Content>
-                  <Card.Header>{filteredFlashcards[count].question}</Card.Header>
-                  {this.state.active ? <Card.Description>{filteredFlashcards[count].answer}</Card.Description> : null}
-                </Card.Content>
-              </Card>
-            </div>
-            <br />
-            <br />
+        <div>
+          {filteredFlashcards && count < filteredFlashcards.length && chosenPack?
             <div>
-              {inputCheck.length ?
-                inputCheck === "You Got It!" ?
-                  (<Message positive>
-                    <Message.Header>{inputCheck}</Message.Header>
-                  </Message>)
-                :
-                  (<Message negative>
-                    <Message.Header>{inputCheck}</Message.Header>
-                  </Message>)
-              : null}
+              <br />
+              <br />
+              <div style={cardStyle}>
+                <Card key={filteredFlashcards[count].id} onClick={this.toggleDescriptionClick}>
+                  <Card.Content>
+                    <Card.Header>{filteredFlashcards[count].question}</Card.Header>
+                    {this.state.active ? <Card.Description>{filteredFlashcards[count].answer}</Card.Description> : null}
+                  </Card.Content>
+                </Card>
+              </div>
+              <br />
+              <br />
+              <div>
+                {inputCheck.length ?
+                  inputCheck === "You Got It!" ?
+                    (<Message positive>
+                      <Message.Header>{inputCheck}</Message.Header>
+                    </Message>)
+                  :
+                    (<Message negative>
+                      <Message.Header>{inputCheck}</Message.Header>
+                    </Message>)
+                : null}
+              </div>
+              <br />
+              <br />
+              <div>
+                <Form onSubmit={(evt) => this.handleSubmit(evt)}>
+                  <TextArea type="text" placeholder="Type in answer here" value={input} onChange={this.handleChange}/>
+                  <br />
+                  <br />
+                  <Button type="submit" content="Submit" color="green"/>
+                </Form>
+              </div>
+              <br />
+              <Button value="prevClick" onClick={(evt) => this.goToCardClick(evt)} content='Prev Card' icon='left arrow' labelPosition='left' />
+              <Button value="nextClick" onClick={(evt) => this.goToCardClick(evt)} content='Next Card' icon='right arrow' labelPosition='right' />
+              <br />
             </div>
-            <br />
-            <br />
-            <div>
-              <Form onSubmit={this.handleSubmit}>
-                <TextArea type="text" placeholder="Type in answer here" value={input} onChange={this.handleChange}/>
-                <br />
-                <br />
-                <Button type="submit" content="Submit" color="green"/>
-              </Form>
-            </div>
-            <br />
-            <Button value="prevClick" onClick={(evt) => this.goToCardClick(evt)} content='Prev Card' icon='left arrow' labelPosition='left' />
-            <Button value="nextClick" onClick={(evt) => this.goToCardClick(evt)} content='Next Card' icon='right arrow' labelPosition='right' />
-            <br />
-          </div>
-          : <h2>There are currently no flashcards in this pack</h2>
-        }
+            : <h2>There are currently no flashcards in this pack</h2>
+          }
+        </div>
+        <br />
+        <br />
+          <Modal trigger={<Button>Add A New Flashcard</Button>}>
+            <Form onSubmit={this.submitNewFlashcard}>
+              <Modal.Content>
+                <Modal.Description>
+                  Question: <Input name="question" placeholder='Insert question here' />
+                  <br />
+                  Answer: <Input name="answer" placeholder='Answer' />
+                </Modal.Description>
+              </Modal.Content>
+              <Button type="submit" content="Submit" color="green"/>
+            </Form>
+          </Modal>
       </div>
     )
   }
@@ -157,6 +186,9 @@ const mapDispatch = dispatch => {
   return {
     getFlashcards() {
       dispatch(fetchFlashcards())
+    },
+    addFlashcard(flashcard) {
+      dispatch(postFlashcard(flashcard))
     }
   }
 }

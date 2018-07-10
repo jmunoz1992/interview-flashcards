@@ -31,9 +31,9 @@ export const fetchFlashcards = () => async dispatch => {
   }
 }
 
-export const postFlashcard = () => async dispatch => {
+export const postFlashcard = (flashcard) => async dispatch => {
   try {
-    const res = await axios.post('/api/flashcards')
+    const res = await axios.post('/api/flashcards', flashcard)
     dispatch(addFlashcard(res.data || defaultFlashcards))
   } catch (err) {
     console.error(err)
