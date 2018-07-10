@@ -24,9 +24,7 @@ router.post('/', async (req, res, next) => {
         name: type
       }
     })
-    if(matchingPack) {
-      createdFlashcard.setPack(matchingPack.id)
-    }
+    if(matchingPack) createdFlashcard.setPack(matchingPack.id)
     res.status(201).json(createdFlashcard)
   } catch (err) {
     next(err)
