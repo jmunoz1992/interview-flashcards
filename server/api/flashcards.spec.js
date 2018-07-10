@@ -5,6 +5,7 @@ const request = require('supertest')
 const db = require('../db')
 const app = require('../index')
 const Flashcard = db.model('flashcard')
+const Pack = db.model('pack')
 const agent = require('supertest')(app);
 
 describe('Flashcard routes', () => {
@@ -37,13 +38,14 @@ describe('Flashcard routes', () => {
       .send({
         question: 'What is the store for in redux?',
         answer: "An easier way to manage state",
-        type: "redux"
+        type: "redux",
+        packId: 3
       })
       .expect(201);
-    const createdFlashcard = await Flashcard.findById(response.body.id);
-    expect(createdFlashcard.question).to.be.equal('What is the store for in redux?');
-    expect(createdFlashcard.answer).to.be.equal('An easier way to manage state');
-    expect(createdFlashcard.type).to.be.equal('redux');
-    })
+      const createdFlashcard = await Flashcard.findById(response.body.id);
+      expect(createdFlashcard.question).to.be.equal('What is the store for in redux?');
+      expect(createdFlashcard.answer).to.be.equal('An easier way to manage state');
+      expect(createdFlashcard.type).to.be.equal('redux');
+      })
   }) // end describe('/api/users')
 }) // end describe('User routes')
