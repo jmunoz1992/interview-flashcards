@@ -159,6 +159,58 @@ const frontendFlashcardData = [
     Disadvantages: Many missing features that some developers might be used to. No more access to function.caller and function.arguments. Concatenation of scripts written in different strict modes might cause issues.`,
     type: 'frontend'
   },
+  {
+    question: `Why is it, in general, a good idea to leave the global scope of a website as-is and never touch it?`,
+    answer: `Every script has access to the global scope, and if everyone uses the global namespace to define their variables, collisions will likely occur. Use the module pattern (IIFEs) to encapsulate your variables within a local namespace.`,
+    type: 'frontend'
+  },
+  {
+    question: `Why would you use something like the load event? Does this event have disadvantages? Do you know any alternatives, and why would you use those?`,
+    answer: `The load event fires at the end of the document loading process. At this point, all of the objects in the document are in the DOM, and all the images, scripts, links and sub-frames have finished loading.
+
+    The DOM event DOMContentLoaded will fire after the DOM for the page has been constructed, but do not wait for other resources to finish loading. This is preferred in certain cases when you do not need the full page to be loaded before initializing.`,
+    type: 'frontend'
+  },
+  {
+    question: `Explain what a single page app is and how to make one SEO-friendly.`,
+    answer: `In modern SPAs, client-side rendering is used instead. The browser loads the initial page from the server, along with the scripts (frameworks, libraries, app code) and stylesheets required for the whole app. When the user navigates to other pages, a page refresh is not triggered. The URL of the page is updated via the HTML5 History API. New data required for the new page, usually in JSON format, is retrieved by the browser via AJAX requests to the server. The SPA then dynamically updates the page with the data via JavaScript, which it has already downloaded in the initial page load. This model is similar to how native mobile apps work.
+
+    Benefits: The app feels more responsive and users do not see the flash between page navigations due to full-page refreshes.
+    Fewer HTTP requests are made to the server, as the same assets do not have to be downloaded again for each page load.
+    Clear separation of the concerns between the client and the server; you can easily build new clients for different platforms (e.g. mobile, chatbots, smart watches) without having to modify the server code. You can also modify the technology stack on the client and server independently, as long as the API contract is not broken.
+
+    Downsides: Heavier initial page load due to the loading of framework, app code, and assets required for multiple pages. There's an additional step to be done on your server which is to configure it to route all requests to a single entry point and allow client-side routing to take over from there. SPAs are reliant on JavaScript to render content, but not all search engines execute JavaScript during crawling, and they may see empty content on your page. This inadvertently hurts the Search Engine Optimization (SEO) of your app. However, most of the time, when you are building apps, SEO is not the most important factor, as not all the content needs to be indexable by search engines. To overcome this, you can either server-side render your app or use services such as Prerender to "render your javascript in a browser, save the static HTML, and return that to the crawlers".
+    `,
+    type: 'frontend'
+  }, {
+    question: `What is the extent of your experience with Promises and/or their polyfills?`,
+    answer: `Possess working knowledge of it. A promise is an object that may produce a single value sometime in the future: either a resolved value or a reason that it's not resolved (e.g., a network error occurred). A promise may be in one of 3 possible states: fulfilled, rejected, or pending. Promise users can attach callbacks to handle the fulfilled value or the reason for rejection.
+
+    Some common polyfills are $.deferred, Q and Bluebird but not all of them comply with the specification. ES2015 supports Promises out of the box and polyfills are typically not needed these days.`,
+    type: 'frontend'
+  }, {
+    question: `What are the pros and cons of using Promises instead of callbacks?`,
+    answer: `Pros: Avoid callback hell which can be unreadable. Makes it easy to write sequential asynchronous code that is readable with .then(). Makes it easy to write parallel asynchronous code with Promise.all(). Cons: Slightly more complex code (debatable). In older browsers where ES2015 is not supported, you need to load a polyfill in order to use it.`,
+    type: 'frontend'
+  }, {
+    question: `What are some of the advantages/disadvantages of writing JavaScript code in a language that compiles to JavaScript?`,
+    answer: `Some examples of languages that compile to JavaScript include CoffeeScript, Elm, ClojureScript, PureScript, and TypeScript.
+    Advantages: Fixes some of the longstanding problems in JavaScript and discourages JavaScript anti-patterns. Enables you to write shorter code, by providing some syntactic sugar on top of JavaScript, which I think ES5 lacks, but ES2015 is awesome. Static types are awesome (in the case of TypeScript) for large projects that need to be maintained over time.
+    Disadvantages: Require a build/compile process as browsers only run JavaScript and your code will need to be compiled into JavaScript before being served to browsers. Debugging can be a pain if your source maps do not map nicely to your pre-compiled source.
+    Most developers are not familiar with these languages and will need to learn it. There's a ramp up cost involved for your team if you use it for your projects. Smaller community (depends on the language), which means resources, tutorials, libraries, and tooling would be harder to find.
+    IDE/editor support might be lacking. These languages will always be behind the latest JavaScript standard.
+    Developers should be cognizant of what their code is being compiled to-because that is what would actually be running, and that is what matters in the end. Practically, ES2015 has vastly improved JavaScript and made it much nicer to write. I don't really see the need for CoffeeScript these days.`,
+    type: 'frontend'
+  }, {
+    question: `Explain the difference between synchronous and asynchronous functions.`,
+    answer: `Synchronous functions are blocking while asynchronous functions are not. In synchronous functions, statements complete before the next statement is run. In this case, the program is evaluated exactly in order of the statements and execution of the program is paused if one of the statements take a very long time. Asynchronous functions usually accept a callback as a parameter and execution continue on the next line immediately after the asynchronous function is invoked. The callback is only invoked when the asynchronous operation is complete and the call stack is empty. Heavy duty operations such as loading data from a web server or querying a database should be done asynchronously so that the main thread can continue executing other operations instead of blocking until that long operation to complete (in the case of browsers, the UI will freeze).`,
+    type: 'frontend'
+  },
+  {
+    question: `What is event loop? What is the difference between call stack and task queue?`,
+    answer: `The event loop is a single-threaded loop that monitors the call stack and checks if there is any work to be done in the task queue. If the call stack is empty and there are callback functions in the task queue, a function is dequeued and pushed onto the call stack to be executed.`,
+    type: 'frontend'
+  },
 ]
 
 const packData = [

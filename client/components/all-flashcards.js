@@ -72,7 +72,6 @@ class AllFlashcards extends React.Component {
 
   submitNewFlashcard = (evt) => {
     evt.preventDefault();
-    console.log('getting in this submit new flashcard ', evt.target.question.value, evt.target.answer.value);
     const question = evt.target.question.value;
     const answer = evt.target.answer.value;
     const type = this.props.chosenPack.name;
@@ -88,7 +87,7 @@ class AllFlashcards extends React.Component {
     let filteredFlashcards;
     if(flashcards.length) {
       filteredFlashcards = flashcards.filter(flashcard => {
-          if(flashcard.type.toLowerCase() === chosenPack.name.toLowerCase()) {
+          if(chosenPack && flashcard.type.toLowerCase() === chosenPack.name.toLowerCase()) {
             return flashcard;
           }
         })
@@ -105,7 +104,7 @@ class AllFlashcards extends React.Component {
     };
     return (
       <div style={divStyle}>
-        <h1>{chosenPack.name} Flashcards</h1>
+        <h1>{chosenPack ? chosenPack.name : null} Flashcards</h1>
         <div>
           {filteredFlashcards && count < filteredFlashcards.length && chosenPack?
             <div>
