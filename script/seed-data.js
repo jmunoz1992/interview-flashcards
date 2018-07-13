@@ -210,6 +210,37 @@ const frontendFlashcardData = [
     question: `What is event loop? What is the difference between call stack and task queue?`,
     answer: `The event loop is a single-threaded loop that monitors the call stack and checks if there is any work to be done in the task queue. If the call stack is empty and there are callback functions in the task queue, a function is dequeued and pushed onto the call stack to be executed.`,
     type: 'frontend'
+  }, {
+    question: `What is event loop? What is the difference between call stack and task queue?`,
+    answer: `The event loop is a single-threaded loop that monitors the call stack and checks if there is any work to be done in the task queue. If the call stack is empty and there are callback functions in the task queue, a function is dequeued and pushed onto the call stack to be executed.`,
+    type: 'frontend'
+  },  {
+    question: `What is the definition of a higher-order function?`,
+    answer: `A higher-order function is any function that takes one or more functions as arguments, which it uses to operate on some data, and/or returns a function as a result. Higher-order functions are meant to abstract some operation that is performed repeatedly. The classic example of this is map, which takes an array and a function as arguments. map then uses this function to transform each item in the array, returning a new array with the transformed data. Other popular examples in JavaScript are forEach, filter, and reduce. A higher-order function doesn't just need to be manipulating arrays as there are many use cases for returning a function from another function. Function.prototype.bind is one such example in JavaScript.`,
+    type: 'frontend'
+  }, {
+    question: `Can you give an example of a curry function and why this syntax offers an advantage?`,
+    answer: `Currying is a pattern where a function with more than one parameter is broken into multiple functions that, when called in series, will accumulate all of the required parameters one at a time. This technique can be useful for making code written in a functional style easier to read and compose. It's important to note that for a function to be curried, it needs to start out as one function, then broken out into a sequence of functions that each accepts one parameter.`,
+    type: 'frontend'
+  }, {
+    question: `What are the benefits of using spread syntax and how is it different from rest syntax?`,
+    answer: `ES6's spread syntax is very useful when coding in a functional paradigm as we can easily create copies of arrays or objects without resorting to Object.create, slice, or a library function. This language feature is used often in Redux and rx.js projects. ES6's rest syntax offers a shorthand for including an arbitrary number of arguments to be passed to a function. It is like an inverse of the spread syntax, taking data and stuffing it into an array rather than unpacking an array of data, and it works in function arguments, as well as in array and object destructuring assignments.
+    `,
+    type: 'frontend'
+  }, {
+    question: `How can you share code between files?`,
+    answer: `This depends on the JavaScript environment.
+
+    On the client (browser environment), as long as the variables/functions are declared in the global scope (window), all scripts can refer to them. Alternatively, adopt the Asynchronous Module Definition (AMD) via RequireJS for a more modular approach.
+
+    On the server (Node.js), the common way has been to use CommonJS. Each file is treated as a module and it can export variables and functions by attaching them to the module.exports object.
+
+    ES2015 defines a module syntax which aims to replace both AMD and CommonJS. This will eventually be supported in both browser and Node environments.`,
+    type: 'frontend'
+  }, {
+    question: `Why you might want to create static class members?`,
+    answer: `Static class members (properties/methods) are not tied to a specific instance of a class and have the same value regardless of which instance is referring to it. Static properties are typically configuration variables and static methods are usually pure utility functions which do not depend on the state of the instance.`,
+    type: 'frontend'
   },
 ]
 
