@@ -13,7 +13,7 @@ describe('Flashcard routes', () => {
     return db.sync({force: true})
   })
 
-  describe('/api/flashcards/', () => {
+  describe('Flashcard GET routes', () => {
     beforeEach(() => {
       return Flashcard.create({
         question: 'What is the difference between .call and .apply?',
@@ -33,19 +33,55 @@ describe('Flashcard routes', () => {
       expect(res.body[0].type).to.be.equal('frontend')
     })
 
-    it('POST /api/flashcards', async () => {
-      const response = await agent.post('/api/flashcards')
-      .send({
-        question: 'What is the store for in redux?',
-        answer: "An easier way to manage state",
-        type: "redux",
-        packId: 3
+    describe('Flashcard POST routes', () => {
+      beforeEach(() => {
+        return db.sync({force: true})
       })
-      .expect(201);
-      const createdFlashcard = await Flashcard.findById(response.body.id);
-      expect(createdFlashcard.question).to.be.equal('What is the store for in redux?');
-      expect(createdFlashcard.answer).to.be.equal('An easier way to manage state');
-      expect(createdFlashcard.type).to.be.equal('redux');
+
+        it('POST /api/flashcards', async () => {
+          const response = await agent.post('/api/flashcards')
+          .send({
+            question: 'What is the store for in redux?',
+            answer: "An easier way to manage state",
+            type: "redux",
+            packId: 3
+          })
+          .expect(201);
+          const createdFlashcard = await Flashcard.findById(response.body.id);
+          expect(createdFlashcard.question).to.be.equal('What is the store for in redux?');
+          expect(createdFlashcard.answer).to.be.equal('An easier way to manage state');
+          expect(createdFlashcard.type).to.be.equal('redux');
+          })
       })
-  }) // end describe('/api/users')
-}) // end describe('User routes')
+    })
+
+    describe('Flashcard PUT routes', () => {
+      let flashcard;
+
+      beforeEach(() => {
+        return Flashcard.create({
+          question: 'This is a question?',
+          answer: 'This is an answer.',
+          type: 'frontend',
+        })
+          .then((createdFlashcard) => {
+          flashcard = createdFlashcard;
+        });
+      })
+      it('PUT /api/flashcards/:id', async () => {
+          return agent.put(`/api/flashcards/${flashcard.id}`)
+          .send({
+            question: 'An updated question perhaps?',
+            answer: "An updated answer??",
+            type: "redux",
+          })
+          .expect(200)
+          .expect((res) => {
+            expect(res.body.id).to.not.be.an('undefined');
+            expect(res.body.question).to.equal('An updated question perhaps?');
+            expect(res.body.answer).to.equal('An updated answer??');
+            expect(res.body.type).to.equal('redux');
+          });
+      })
+    })
+})
