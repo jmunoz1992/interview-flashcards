@@ -14,6 +14,7 @@ class AllFlashcards extends React.Component {
       count: 0,
       input: "",
       inputCheck: "",
+      modalOpen: false
     }
   }
 
@@ -80,7 +81,16 @@ class AllFlashcards extends React.Component {
       answer,
       type
     })
+    this.closeModal();
   }
+
+  openModal = () => {
+    this.setState({ modalOpen: true });
+  };
+
+  closeModal = () => {
+    this.setState({ modalOpen: false });
+  };
 
   render () {
     const { flashcards, chosenPack } = this.props;
@@ -152,7 +162,7 @@ class AllFlashcards extends React.Component {
         </div>
         <br />
         <br />
-          <Modal trigger={<Button>Add A New Flashcard</Button>}>
+          <Modal trigger={<Button onClick={this.openModal}>Add A New Flashcard</Button>} open={this.state.modalOpen}>
             <Form onSubmit={this.submitNewFlashcard}>
               <Modal.Content>
                 <Modal.Description>
