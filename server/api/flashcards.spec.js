@@ -84,4 +84,34 @@ describe('Flashcard routes', () => {
           });
       })
     })
+
+    describe('Flashcard DELETE routes', () => {
+      let flashcard;
+
+      beforeEach(() => {
+        return Flashcard.create({
+          question: 'This is a question?',
+          answer: 'This is an answer.',
+          type: 'frontend',
+        })
+          .then((createdFlashcard) => {
+          flashcard = createdFlashcard;
+        });
+      })
+      it('PUT /api/flashcards/:id', async () => {
+          return agent.put(`/api/flashcards/${flashcard.id}`)
+          .send({
+            question: 'An updated question perhaps?',
+            answer: "An updated answer??",
+            type: "redux",
+          })
+          .expect(200)
+          .expect((res) => {
+            expect(res.body.id).to.not.be.an('undefined');
+            expect(res.body.question).to.equal('An updated question perhaps?');
+            expect(res.body.answer).to.equal('An updated answer??');
+            expect(res.body.type).to.equal('redux');
+          });
+      })
+    })
 })
