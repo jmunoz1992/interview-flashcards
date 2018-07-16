@@ -98,6 +98,7 @@ describe('Flashcard routes', () => {
           flashcard = createdFlashcard;
         });
       })
+
       it('PUT /api/flashcards/:id', async () => {
           return agent.put(`/api/flashcards/${flashcard.id}`)
           .send({
@@ -113,5 +114,11 @@ describe('Flashcard routes', () => {
             expect(res.body.type).to.equal('redux');
           });
       })
-    })
-})
+
+      it('DELETE /api/flashcards/:id', () => {
+        return agent
+         .delete(`/api/flashcards/${flashcard.id}`)
+          .expect(204)
+      });
+    });
+  })

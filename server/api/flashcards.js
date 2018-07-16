@@ -56,7 +56,7 @@ router.delete('/:id', async (req, res, next) => {
         id: req.params.id
       }
     })
-    res.send('this flashcard has been destroyed')
+    res.status(204).send('this flashcard has been destroyed')
   } catch (err) {
     next(err)
   }
