@@ -1,6 +1,6 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {fetchFlashcards, postFlashcard, deleteFlashcard} from '../store'
+import {fetchFlashcards, postFlashcard, deleteFlashcard, updateThisFlashcard} from '../store'
 import { Card, TextArea, Form, Button, Message, Modal, Input } from 'semantic-ui-react'
 
 /**
@@ -14,7 +14,8 @@ class AllFlashcards extends React.Component {
       count: 0,
       input: "",
       inputCheck: "",
-      modalOpen: false
+      modalOpen: false,
+      editModalOpen: false
     }
   }
 
@@ -88,8 +89,16 @@ class AllFlashcards extends React.Component {
     this.setState({ modalOpen: true });
   };
 
+  openEditModal = () => {
+    this.setState({ editModalOpen: true });
+  }
+
   closeModal = () => {
     this.setState({ modalOpen: false });
+  };
+
+  closeEditModal = () => {
+    this.setState({ editModalOpen: false });
   };
 
   deleteCardClick = (evt) => {
@@ -97,12 +106,24 @@ class AllFlashcards extends React.Component {
     this.props.removeFlashcard(cardToDelete[0]);
   }
 
+  editCardClick = (evt) => {
+    evt.preventDefault();
+    const cardToUpdate = this.props.flashcards.filter(flashcard => flashcard.id === +evt.target.id.value)
+    this.props.updateFlashcard({
+      id: +evt.target.id.value,
+      question: evt.target.question.value,
+      answer: evt.target.answer.value,
+      type: cardToUpdate[0].type
+    });
+    this.closeEditModal();
+  }
+
   render () {
     const { flashcards, chosenPack } = this.props;
     let filteredFlashcards;
     if(flashcards.length) {
       filteredFlashcards = flashcards.filter(flashcard => {
-          if(chosenPack && flashcard.type.toLowerCase() === chosenPack.name.toLowerCase()) {
+          if(chosenPack && flashcard && flashcard.type.toLowerCase() === chosenPack.name.toLowerCase()) {
             return flashcard;
           }
         })
@@ -133,6 +154,22 @@ class AllFlashcards extends React.Component {
                   </Card.Content>
                 </Card>
                 <br />
+                <Modal trigger={<Button onClick={this.openEditModal}>Edit This Flashcard</Button>} open={this.state.editModalOpen}>
+                  <Form onSubmit={this.editCardClick}>
+                    <Modal.Content>
+                      <Modal.Description>
+                        Id: <Input name="id" value={filteredFlashcards[count].id} />
+                        <br />
+                        <br />
+                        Question: <Input name="question" placeholder={filteredFlashcards[count].question} />
+                        <br />
+                        <br />
+                        Answer: <Input name="answer" placeholder={filteredFlashcards[count].answer} />
+                      </Modal.Description>
+                    </Modal.Content>
+                    <Button  type="submit" content="Submit" color="green"/>
+                  </Form>
+                </Modal>
                 <Button value={filteredFlashcards[count].id} onClick={(evt) => this.deleteCardClick(evt)}>Delete This Card</Button>
               </div>
               <br />
@@ -208,6 +245,9 @@ const mapDispatch = dispatch => {
     },
     removeFlashcard(flashcard) {
       dispatch(deleteFlashcard(flashcard))
+    },
+    updateFlashcard(flashcard) {
+      dispatch(updateThisFlashcard(flashcard))
     }
   }
 }
