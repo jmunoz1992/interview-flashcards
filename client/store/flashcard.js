@@ -15,9 +15,20 @@ const defaultFlashcards = []
 /**
  * ACTION CREATORS
  */
-const getFlashcards = (flashcards) => ({type: GET_FLASHCARDS, flashcards})
-const removeFlashcard = () => ({type: REMOVE_USER})
-const addFlashcard = (flashcard) => ({type: ADD_FLASHCARD, flashcard})
+const getFlashcards = (flashcards) => ({
+  type: GET_FLASHCARDS,
+  flashcards
+})
+
+const removeFlashcard = (flashcard) => ({
+  type: REMOVE_FLASHCARD,
+  flashcard
+})
+
+const addFlashcard = (flashcard) => ({
+  type: ADD_FLASHCARD,
+  flashcard
+})
 
 /**
  * THUNK CREATORS
@@ -40,6 +51,15 @@ export const postFlashcard = (flashcard) => async dispatch => {
   }
 }
 
+export const deleteFlashcard = (flashcard) => async dispatch => {
+  try {
+    const res = await axios.delete(`/api/flashcards/${flashcard.id}`)
+    dispatch(removeFlashcard(flashcard))
+  } catch (err) {
+    console.error(err)
+  }
+}
+
 /**
  * REDUCER
  */
@@ -50,7 +70,9 @@ export default function(state = defaultFlashcards, action) {
     case GET_FLASHCARDS:
       return action.flashcards
     case REMOVE_FLASHCARD:
-      return defaultFlashcards
+      const flashcard_to_delete_id = action.flashcard.id;
+      let new_flashcards = state.slice();
+      return new_flashcards.filter(flashcard => flashcard.id !== flashcard_to_delete_id)
     default:
       return state
   }

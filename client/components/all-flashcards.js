@@ -1,6 +1,6 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {fetchFlashcards, postFlashcard} from '../store'
+import {fetchFlashcards, postFlashcard, deleteFlashcard} from '../store'
 import { Card, TextArea, Form, Button, Message, Modal, Input } from 'semantic-ui-react'
 
 /**
@@ -92,6 +92,11 @@ class AllFlashcards extends React.Component {
     this.setState({ modalOpen: false });
   };
 
+  deleteCardClick = (evt) => {
+    const cardToDelete = this.props.flashcards.filter(flashcard => flashcard.id === +evt.target.value)
+    this.props.removeFlashcard(cardToDelete[0]);
+  }
+
   render () {
     const { flashcards, chosenPack } = this.props;
     let filteredFlashcards;
@@ -127,6 +132,8 @@ class AllFlashcards extends React.Component {
                     {this.state.active ? <Card.Description>{filteredFlashcards[count].answer}</Card.Description> : null}
                   </Card.Content>
                 </Card>
+                <br />
+                <Button value={filteredFlashcards[count].id} onClick={(evt) => this.deleteCardClick(evt)}>Delete This Card</Button>
               </div>
               <br />
               <br />
@@ -198,6 +205,9 @@ const mapDispatch = dispatch => {
     },
     addFlashcard(flashcard) {
       dispatch(postFlashcard(flashcard))
+    },
+    removeFlashcard(flashcard) {
+      dispatch(deleteFlashcard(flashcard))
     }
   }
 }
