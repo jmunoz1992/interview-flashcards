@@ -75,7 +75,7 @@ describe('Flashcard routes', () => {
             answer: "An updated answer??",
             type: "redux",
           })
-          .expect(200)
+          .expect(201)
           .expect((res) => {
             expect(res.body.id).to.not.be.an('undefined');
             expect(res.body.question).to.equal('An updated question perhaps?');
@@ -106,7 +106,7 @@ describe('Flashcard routes', () => {
             answer: "An updated answer??",
             type: "redux",
           })
-          .expect(200)
+          .expect(201)
           .expect((res) => {
             expect(res.body.id).to.not.be.an('undefined');
             expect(res.body.question).to.equal('An updated question perhaps?');
