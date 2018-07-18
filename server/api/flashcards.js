@@ -43,7 +43,7 @@ router.put('/:id', async (req, res, next) => {
       }
     })
     const updatedFlashcard = await Flashcard.findById(req.params.id);
-    res.status(200).json(updatedFlashcard)
+    res.status(201).json(updatedFlashcard)
   } catch (err) {
     next(err)
   }
