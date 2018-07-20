@@ -1,6 +1,6 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {fetchPacks, deletePack, postPack} from '../store'
+import {fetchPacks, deletePack, postPack, editPack} from '../store'
 import {Card, Button, Modal, Form, Input} from 'semantic-ui-react'
 import { Link } from 'react-router-dom'
 
@@ -12,6 +12,7 @@ class AllPacks extends React.Component {
     super(props);
     this.state = {
       modalOpen: false,
+      editModalOpen: false
     }
   }
 
@@ -25,8 +26,22 @@ class AllPacks extends React.Component {
   }
 
   editPackClick = (evt) => {
-    console.log('edit this pack thooo: ', evt.target.value)
+    evt.preventDefault();
+    const packToUpdate = this.props.packs.filter(pack => pack.id === +evt.target.id.value)
+    this.props.updatePack({
+      id: +evt.target.id.value,
+      name: evt.target.name.value,
+    });
+    this.closeEditModal();
   }
+
+  openEditModal = () => {
+    this.setState({ editModalOpen: true });
+  }
+
+  closeEditModal = () => {
+    this.setState({ editModalOpen: false });
+  };
 
   submitNewPack = (evt) => {
     evt.preventDefault();
@@ -77,7 +92,21 @@ class AllPacks extends React.Component {
                     </Card.Content>
                   </Card>
                 </Link>
-                <Button value={pack.id} onClick={(evt) => this.editPackClick(evt)}>Edit This Pack</Button>
+                <Modal trigger={<Button onClick={this.openEditModal}>Edit This Flashcard</Button>} open={this.state.editModalOpen}>
+                  <Form onSubmit={this.editPackClick}>
+                    <Modal.Content>
+                      <Modal.Description>
+                        Id: <Input name="id" value={pack.id} />
+                        <br />
+                        <br />
+                        Name: <Input name="name" placeholder={pack.name} />
+                        <br />
+                        <br />
+                      </Modal.Description>
+                    </Modal.Content>
+                    <Button type="submit" content="Submit" color="green"/>
+                  </Form>
+                </Modal>
                 <Button value={pack.id} onClick={(evt) => this.deletePackClick(evt)}>Delete This Pack</Button>
                 <br /><br />
                 </div>
@@ -121,6 +150,9 @@ const mapDispatch = dispatch => {
     },
     addPack(pack) {
       dispatch(postPack(pack))
+    },
+    updatePack(pack) {
+      dispatch(editPack(pack))
     }
   }
 }

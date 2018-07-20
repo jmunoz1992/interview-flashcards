@@ -6,6 +6,7 @@ import axios from 'axios'
 const GET_PACKS = 'GET_PACKS'
 const ADD_PACK = 'ADD_PACK'
 const REMOVE_PACK = 'REMOVE_PACK'
+const UPDATE_PACK = 'UPDATE_PACK'
 
 
 /**
@@ -28,6 +29,11 @@ const addPack = (pack) => ({
 
 const removePack = (pack) => ({
   type: REMOVE_PACK,
+  pack
+})
+
+const updatePack = (pack) => ({
+  type: UPDATE_PACK,
   pack
 })
 
@@ -61,6 +67,15 @@ export const deletePack = (pack) => async dispatch => {
   }
 }
 
+export const editPack = (pack) => async dispatch => {
+  try {
+    const res = await axios.put(`/api/packs/${pack.id}`, pack)
+    dispatch(updatePack(res.data || defaultPacks))
+  } catch (err) {
+    console.error(err)
+  }
+}
+
 
 
 /**
@@ -76,6 +91,16 @@ export default function(state = defaultPacks, action) {
       const pack_to_delete_id = action.pack.id;
       let new_packs = state.slice();
       return new_packs.filter(pack => pack.id !== pack_to_delete_id)
+    case UPDATE_PACK:
+      const pack_to_update = action.pack;
+      let updated_packs = state.slice();
+      return updated_packs.map(pack => {
+        if(pack.id === pack_to_update.id) {
+          return pack_to_update
+        } else {
+          return pack
+        }
+      })
     default:
       return state
   }

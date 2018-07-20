@@ -63,7 +63,6 @@ export const deleteFlashcard = (flashcard) => async dispatch => {
 
 export const updateThisFlashcard = (flashcard) => async dispatch => {
   try {
-    console.log('update this flashcard dispatch ', flashcard)
     const res = await axios.put(`/api/flashcards/${flashcard.id}`, flashcard)
     dispatch(updateFlashcard(res.data || defaultFlashcards))
   } catch (err) {
