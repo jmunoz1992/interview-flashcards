@@ -4,6 +4,7 @@ import axios from 'axios'
  * ACTION TYPES
  */
 const GET_PACKS = 'GET_PACKS'
+const ADD_PACK = 'ADD_PACK'
 const REMOVE_PACK = 'REMOVE_PACK'
 
 
@@ -19,6 +20,12 @@ const getPacks = (packs) => ({
   type: GET_PACKS,
   packs
 })
+
+const addPack = (pack) => ({
+  type: ADD_PACK,
+  pack
+})
+
 const removePack = (pack) => ({
   type: REMOVE_PACK,
   pack
@@ -31,6 +38,15 @@ export const fetchPacks = () => async dispatch => {
   try {
     const res = await axios.get('/api/packs')
     return dispatch(getPacks(res.data || defaultPacks))
+  } catch (err) {
+    console.error(err)
+  }
+}
+
+export const postPack = (pack) => async dispatch => {
+  try {
+    const res = await axios.post('/api/packs', pack)
+    dispatch(addPack(res.data || defaultPacks))
   } catch (err) {
     console.error(err)
   }
@@ -54,6 +70,8 @@ export default function(state = defaultPacks, action) {
   switch (action.type) {
     case GET_PACKS:
       return action.packs
+    case ADD_PACK:
+      return [...state, action.pack]
     case REMOVE_PACK:
       const pack_to_delete_id = action.pack.id;
       let new_packs = state.slice();

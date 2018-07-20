@@ -1,7 +1,7 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {fetchPacks, deletePack} from '../store'
-import {Card, Button} from 'semantic-ui-react'
+import {fetchPacks, deletePack, postPack} from '../store'
+import {Card, Button, Modal, Form, Input} from 'semantic-ui-react'
 import { Link } from 'react-router-dom'
 
 /**
@@ -11,6 +11,7 @@ class AllPacks extends React.Component {
   constructor(props){
     super(props);
     this.state = {
+      modalOpen: false,
     }
   }
 
@@ -26,6 +27,24 @@ class AllPacks extends React.Component {
   editPackClick = (evt) => {
     console.log('edit this pack thooo: ', evt.target.value)
   }
+
+  submitNewPack = (evt) => {
+    evt.preventDefault();
+    const name = evt.target.name.value;
+    this.props.addPack({
+      name
+    })
+    this.closeModal();
+  }
+
+  openModal = () => {
+    this.setState({ modalOpen: true });
+  };
+
+  closeModal = () => {
+    this.setState({ modalOpen: false });
+  };
+
 
   render () {
     const { packs } = this.props;
@@ -67,6 +86,17 @@ class AllPacks extends React.Component {
             null
           }
         </div>
+        <Modal trigger={<Button onClick={this.openModal}>Add A New Pack</Button>} open={this.state.modalOpen}>
+        <Form onSubmit={(evt) => this.submitNewPack(evt)}>
+          <Modal.Content>
+            <Modal.Description>
+              Pack Name: <Input name="name" placeholder='Insert pack name here' />
+              <br />
+            </Modal.Description>
+          </Modal.Content>
+          <Button type="submit" content="Submit" color="green"/>
+        </Form>
+      </Modal>
       </div>
     )
   }
@@ -89,6 +119,9 @@ const mapDispatch = dispatch => {
     removePack(pack) {
       dispatch(deletePack(pack))
     },
+    addPack(pack) {
+      dispatch(postPack(pack))
+    }
   }
 }
 
