@@ -1,7 +1,7 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {fetchPacks} from '../store'
-import {Card} from 'semantic-ui-react'
+import {fetchPacks, deletePack} from '../store'
+import {Card, Button} from 'semantic-ui-react'
 import { Link } from 'react-router-dom'
 
 /**
@@ -16,6 +16,15 @@ class AllPacks extends React.Component {
 
   componentDidMount() {
     this.props.getPacks();
+  }
+
+  deletePackClick = (evt) => {
+    const packToDelete = this.props.packs.filter(pack => pack.id === +evt.target.value)
+    this.props.removePack(packToDelete[0]);
+  }
+
+  editPackClick = (evt) => {
+    console.log('edit this pack thooo: ', evt.target.value)
   }
 
   render () {
@@ -41,13 +50,18 @@ class AllPacks extends React.Component {
           {packs.length ?
             packs.map(pack => {
               return (
-                <Link to={`/packs/${pack.id}/flashcards`} key={pack.id}>
+                <div key={pack.id}>
+                <Link to={`/packs/${pack.id}/flashcards`}>
                   <Card style={cardStyle}>
                     <Card.Content>
                       <Card.Header>{pack.name}</Card.Header>
                     </Card.Content>
                   </Card>
                 </Link>
+                <Button value={pack.id} onClick={(evt) => this.editPackClick(evt)}>Edit This Pack</Button>
+                <Button value={pack.id} onClick={(evt) => this.deletePackClick(evt)}>Delete This Pack</Button>
+                <br /><br />
+                </div>
               )
             }) :
             null
@@ -71,7 +85,10 @@ const mapDispatch = dispatch => {
   return {
     getPacks() {
       dispatch(fetchPacks())
-    }
+    },
+    removePack(pack) {
+      dispatch(deletePack(pack))
+    },
   }
 }
 
