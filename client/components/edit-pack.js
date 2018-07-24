@@ -21,8 +21,6 @@ class EditPack extends React.Component {
 
   editPackClick = (evt) => {
     evt.preventDefault();
-    console.log('id ', +evt.target.id.value)
-    console.log('name ', evt.target.name.value)
     this.props.updatePack({
       id: +evt.target.id.value,
       name: evt.target.name.value,
@@ -57,12 +55,6 @@ class EditPack extends React.Component {
 /**
  * CONTAINER
  */
-const mapState = state => {
-  return {
-    isLoggedIn: !!state.user.id,
-    user: state.user,
-  }
-}
 
 const mapDispatch = dispatch => {
   return {
@@ -72,4 +64,4 @@ const mapDispatch = dispatch => {
   }
 }
 
-export default connect(mapState, mapDispatch)(EditPack)
+export default connect(null, mapDispatch)(EditPack)

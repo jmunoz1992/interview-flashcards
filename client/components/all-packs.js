@@ -1,9 +1,9 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {fetchPacks, deletePack, postPack, editPack} from '../store'
+import {fetchPacks, deletePack, postPack} from '../store'
 import {Card, Button, Modal, Form, Input} from 'semantic-ui-react'
 import { Link } from 'react-router-dom'
-import {EditPack} from './index'
+import {EditPack, AddPack} from './index'
 
 /**
  * COMPONENT
@@ -12,7 +12,6 @@ class AllPacks extends React.Component {
   constructor(props){
     super(props);
     this.state = {
-      modalOpen: false,
     }
   }
 
@@ -78,24 +77,14 @@ class AllPacks extends React.Component {
                   <EditPack pack={pack} />
                   <br />
                   <Button value={pack.id} onClick={(evt) => this.deletePackClick(evt)}>Delete This Pack</Button>
-                  <br /><br />
+                  <br /><br /><br /><br />
                 </div>
               )
             }) :
             null
           }
         </div>
-        <Modal trigger={<Button onClick={this.openModal}>Add A New Pack</Button>} open={this.state.modalOpen}>
-        <Form onSubmit={(evt) => this.submitNewPack(evt)}>
-          <Modal.Content>
-            <Modal.Description>
-              Pack Name: <Input name="name" placeholder='Insert pack name here' />
-              <br />
-            </Modal.Description>
-          </Modal.Content>
-          <Button type="submit" content="Submit" color="green"/>
-        </Form>
-      </Modal>
+        <AddPack />
       </div>
     )
   }
@@ -121,9 +110,6 @@ const mapDispatch = dispatch => {
     addPack(pack) {
       dispatch(postPack(pack))
     },
-    updatePack(pack) {
-      dispatch(editPack(pack))
-    }
   }
 }
 
