@@ -11,6 +11,9 @@ const Flashcard = db.define('flashcard', {
   },
   type: {
     type: Sequelize.STRING,
+  },
+  gotCorrect: {
+    type: Sequelize.BOOLEAN
   }
 })
 

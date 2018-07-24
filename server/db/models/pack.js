@@ -7,6 +7,9 @@ const Pack = db.define('pack', {
     unique: true,
     allowNull: false
   },
+  amtCorrect: {
+    type: Sequelize.INTEGER
+  }
 })
 
 module.exports = Pack
