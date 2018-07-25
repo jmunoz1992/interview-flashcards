@@ -36,6 +36,7 @@ router.put('/:id', async (req, res, next) => {
     await Flashcard.update({
       question: req.body.question,
       answer: req.body.answer,
+      gotCorrect: req.body.gotCorrect,
       type: req.body.type,
     }, {
       where: {
