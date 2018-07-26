@@ -76,31 +76,6 @@ class EachFlashcard extends React.Component {
     return userInput === flashcardAnswer;
   }
 
-  submitNewFlashcard = (evt) => {
-    evt.preventDefault();
-    const question = evt.target.question.value;
-    const answer = evt.target.answer.value;
-    const type = this.props.chosenPack.name;
-    this.props.addFlashcard({
-      question,
-      answer,
-      type
-    })
-    this.closeModal();
-  }
-
-  openModal = () => {
-    this.setState({ modalOpen: true });
-  };
-
-  openEditModal = () => {
-    this.setState({ editModalOpen: true });
-  }
-
-  closeModal = () => {
-    this.setState({ modalOpen: false });
-  };
-
   closeEditModal = () => {
     this.setState({ editModalOpen: false });
   };
@@ -211,18 +186,6 @@ class EachFlashcard extends React.Component {
         </div>
         <br />
         <br />
-          <Modal trigger={<Button onClick={this.openModal}>Add A New Flashcard</Button>} open={this.state.modalOpen}>
-            <Form onSubmit={this.submitNewFlashcard}>
-              <Modal.Content>
-                <Modal.Description>
-                  Question: <Input name="question" placeholder='Insert question here' />
-                  <br />
-                  Answer: <Input name="answer" placeholder='Answer' />
-                </Modal.Description>
-              </Modal.Content>
-              <Button type="submit" content="Submit" color="green"/>
-            </Form>
-          </Modal>
       </div>
     )
   }
