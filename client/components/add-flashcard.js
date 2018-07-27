@@ -15,7 +15,6 @@ class AddFlashcard extends React.Component {
     evt.preventDefault();
     const question = evt.target.question.value;
     const answer = evt.target.answer.value;
-    console.log('pack in here ', this.props.pack);
     const type = this.props.pack.name;
     this.props.addFlashcard({
       question,

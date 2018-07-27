@@ -47,20 +47,33 @@ class AllFlashcards extends React.Component {
       <div>
         <h1 style={headingStyle}>All {pack ? pack.name : null} Flashcards</h1>
         <div>
-          <div style={mainStyle}>
-            {flashcards.length ? flashcards.map(flashcard => {
-              return (
-                <div key={flashcard.id} style={cardStyle}>
-                    <div style={textStyle}>{flashcard.question}</div>
-                </div>)
-            }) :
+          <div>
+            {flashcards.length ?
+              <div>
+                <br /><br />
+                <div style={headingStyle}>
+                  <AddFlashcard />
+                </div>
+                <br /><br />
+                <div style={mainStyle}>
+                {
+                  flashcards.map(flashcard => {
+                    return (
+                      <div key={flashcard.id} style={cardStyle}>
+                          <div style={textStyle}>{flashcard.question}</div>
+                      </div>)
+                })}
+                </div>
+              </div>
+            :
             <div style={headingStyle}>
               <br /><br />
               <h2>There are currently no flashcards in here. Add a flashcard.</h2>
+              <br /><br />
+              <AddFlashcard />
             </div>
             }
             <br /><br/>
-            <AddFlashcard />
           </div>
         </div>
       </div>
