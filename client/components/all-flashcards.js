@@ -49,7 +49,7 @@ class AllFlashcards extends React.Component {
         <h1 style={headingStyle}>All {pack ? pack.name : null} Flashcards</h1>
         <div>
           <div>
-            {flashcards.length ?
+            {flashcards.length && pack ?
               <div>
                 <br /><br />
                 <div style={headingStyle}>
@@ -61,7 +61,9 @@ class AllFlashcards extends React.Component {
                   flashcards.map(flashcard => {
                     return (
                       <div key={flashcard.id} style={cardStyle}>
+                        <Link to={`/packs/${pack.id}/flashcards/${flashcard.id}`}>
                           <div style={textStyle}>{flashcard.question}</div>
+                        </Link>
                       </div>)
                 })}
                 </div>
@@ -69,7 +71,7 @@ class AllFlashcards extends React.Component {
             :
             <div style={headingStyle}>
               <br /><br />
-              <h2>There are currently no flashcards in here. Add a flashcard.</h2>
+              <h3>There are currently no flashcards in here. Add a flashcard.</h3>
               <br /><br />
               <AddFlashcard />
             </div>
