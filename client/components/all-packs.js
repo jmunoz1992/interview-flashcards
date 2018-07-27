@@ -54,7 +54,8 @@ class AllPacks extends React.Component {
       textAlign: 'center',
       border: '5px solid grey',
       color: 'black',
-      padding: '5em'
+      padding: '5em',
+      fontSize: '20px'
     }
     const buttonStyle = {
       display: 'flex',
@@ -88,7 +89,7 @@ class AllPacks extends React.Component {
                     <br />
                     <div style={buttonStyle}>
                       <EditPack pack={pack} />
-                      <Button value={pack.id} onClick={(evt) => this.deletePackClick(evt)}>Delete This Pack</Button>
+                      <Button color="red" value={pack.id} onClick={(evt) => this.deletePackClick(evt)}>Delete This Pack</Button>
                     </div>
                     <br /><br />
                   </div>

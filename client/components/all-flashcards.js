@@ -36,7 +36,8 @@ class AllFlashcards extends React.Component {
       justifyContent: 'space-evenly',
     }
     const textStyle = {
-      margin: '30% auto',
+      margin: '40% auto',
+      fontSize: '15px',
     }
     const headingStyle = {
       textAlign: 'center',

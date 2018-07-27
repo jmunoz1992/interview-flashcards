@@ -35,7 +35,7 @@ class AddFlashcard extends React.Component {
   render() {
     return (
       <div>
-      <Modal trigger={<Button onClick={this.openModal}>Add A New Flashcard</Button>} open={this.state.modalOpen}>
+      <Modal trigger={<Button color="green" onClick={this.openModal}>Add A New Flashcard</Button>} open={this.state.modalOpen}>
         <Form onSubmit={this.submitNewFlashcard}>
           <Modal.Content>
             <Modal.Description>
