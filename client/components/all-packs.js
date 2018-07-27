@@ -51,40 +51,53 @@ class AllPacks extends React.Component {
       textAlign: 'center',
     };
     const cardStyle = {
+      textAlign: 'center',
+      border: '5px solid grey',
+      color: 'black',
+      padding: '5em'
+    }
+    const buttonStyle = {
       display: 'flex',
       flexDirection: 'row',
       justifyContent: 'space-evenly',
-      width: '50%',
-      margin: '1em auto',
-      textAlign: 'center',
+    }
+    const mainStyle = {
+      display: 'flex',
+      flexDirection: 'row',
+      justifyContent: 'space-between',
+      flexWrap: 'wrap',
+      margin: '5em'
     }
     return (
-      <div style={divStyle}>
-        <h1>All Flashcard Packs</h1>
-        <br />
-        <div>
-          {packs.length ?
-            packs.map(pack => {
-              return (
-                <div key={pack.id}>
-                  <Link to={`/packs/${pack.id}/flashcards`}>
-                    <Card style={cardStyle}>
-                      <Card.Content>
-                        <Card.Header>{pack.name}</Card.Header>
-                      </Card.Content>
-                    </Card>
-                  </Link>
-                  <EditPack pack={pack} />
-                  <br />
-                  <Button value={pack.id} onClick={(evt) => this.deletePackClick(evt)}>Delete This Pack</Button>
-                  <br /><br /><br /><br />
-                </div>
-              )
-            }) :
-            null
-          }
+      <div>
+        <div style={divStyle}>
+          <h1>All Flashcard Packs</h1>
+          <br />
+          <AddPack />
         </div>
-        <AddPack />
+        <br />
+          {packs.length ?
+            <div style={mainStyle}>
+            {
+              packs.map(pack => {
+                return (
+                  <div key={pack.id}>
+                    <Link to={`/packs/${pack.id}/flashcards`}>
+                      <div style={cardStyle}>{pack.name}</div>
+                    </Link>
+                    <br />
+                    <div style={buttonStyle}>
+                      <EditPack pack={pack} />
+                      <Button value={pack.id} onClick={(evt) => this.deletePackClick(evt)}>Delete This Pack</Button>
+                    </div>
+                    <br /><br />
+                  </div>
+                )
+              })
+             }
+             </div>
+             : null
+          }
       </div>
     )
   }
