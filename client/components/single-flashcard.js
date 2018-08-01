@@ -34,16 +34,12 @@ class SingleFlashcard extends React.Component {
       margin: '0 auto',
       width: '50%',
     }
-    const cardStyle = {
-      width: '500px',
-      height: '500px',
-    }
     return (
       <div style={headingStyle}>
-        <h1>I AM IN SINGLE FLASHCARD</h1>
+        <h1>Flashcard {flashcard ? `#${flashcard.id}` : null} In {pack ? pack.name : null}</h1>
         <div style={headingStyle}>
         {flashcard ?
-          <div style={cardStyle}>
+          <div>
             <Card onClick={this.toggleDescriptionClick}>
               <Card.Content>
                 <Card.Header>{flashcard.question}</Card.Header>
