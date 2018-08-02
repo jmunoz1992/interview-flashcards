@@ -1,20 +1,14 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import {fetchPacks, deletePack, postPack} from '../store'
-import {Card, Button, Modal, Form, Input} from 'semantic-ui-react'
+import {Button} from 'semantic-ui-react'
 import { Link } from 'react-router-dom'
-import {EditPack, AddPack, AllFlashcards} from './index'
+import {EditPack, AddPack} from './index'
 
 /**
  * COMPONENT
  */
 class AllPacks extends React.Component {
-  constructor(props){
-    super(props);
-    this.state = {
-    }
-  }
-
   componentDidMount() {
     this.props.getPacks();
   }
@@ -24,7 +18,6 @@ class AllPacks extends React.Component {
     this.props.removePack(packToDelete[0]);
   }
 
-
   submitNewPack = (evt) => {
     evt.preventDefault();
     const name = evt.target.name.value;
@@ -33,15 +26,6 @@ class AllPacks extends React.Component {
     })
     this.closeModal();
   }
-
-  openModal = () => {
-    this.setState({ modalOpen: true });
-  };
-
-  closeModal = () => {
-    this.setState({ modalOpen: false });
-  };
-
 
   render () {
     const { packs } = this.props;
@@ -60,13 +44,12 @@ class AllPacks extends React.Component {
     const buttonStyle = {
       display: 'flex',
       flexDirection: 'row',
-      justifyContent: 'space-evenly',
     }
     const mainStyle = {
       display: 'flex',
-      flexDirection: 'row',
-      justifyContent: 'space-between',
       flexWrap: 'wrap',
+    }
+    const packStyle = {
       margin: '5em'
     }
     return (
@@ -82,7 +65,7 @@ class AllPacks extends React.Component {
             {
               packs.map(pack => {
                 return (
-                  <div key={pack.id}>
+                  <div key={pack.id} style={packStyle}>
                     <Link to={`/packs/${pack.id}/flashcards`}>
                       <div style={cardStyle}>{pack.name}</div>
                     </Link>

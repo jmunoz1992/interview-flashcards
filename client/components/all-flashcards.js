@@ -1,7 +1,6 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import {fetchFlashcards, fetchPacks} from '../store'
-import {Card, Button, Modal, Form, Input} from 'semantic-ui-react'
 import { Link } from 'react-router-dom'
 import {AddFlashcard} from './index'
 
@@ -9,12 +8,6 @@ import {AddFlashcard} from './index'
  * COMPONENT
  */
 class AllFlashcards extends React.Component {
-  constructor(props){
-    super(props);
-    this.state = {
-    }
-  }
-
   componentDidMount() {
     this.props.getFlashcards();
     this.props.getPacks();
@@ -90,7 +83,7 @@ class AllFlashcards extends React.Component {
 const mapState = state => {
   const packNum = +(window.location.pathname.split('/')[2]);
   const flashcards = state.flashcards.filter(flashcard => flashcard.packId === packNum);
-  const pack = state.packs.filter(pack => pack.id === packNum)[0];
+  const pack = state.packs.filter(thisPack => thisPack.id === packNum)[0];
   return {
     flashcards,
     pack

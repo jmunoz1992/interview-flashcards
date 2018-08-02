@@ -31,7 +31,7 @@ class EditPack extends React.Component {
   render() {
     return (
       <div>
-        <Modal trigger={<Button color= "blue" onClick={this.openEditModal}>Edit This Flashcard</Button>} open={this.state.editModalOpen}>
+        <Modal trigger={<Button color= "blue" onClick={this.openEditModal}>Edit This Pack</Button>} open={this.state.editModalOpen}>
           <Form onSubmit={(evt) => this.editPackClick(evt)}>
             <Modal.Content>
               <Modal.Description>

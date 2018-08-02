@@ -25,15 +25,7 @@ class SingleFlashcard extends React.Component {
   }
 
   render() {
-    console.log('flashcard in here: ', this.props.flashcard)
-    console.log('pack in here ', this.props.pack)
-
     const {flashcard, pack} = this.props
-    const headingStyle = {
-      textAlign: 'center',
-      margin: '0 auto',
-      width: '50%',
-    }
     return (
       <div style={headingStyle}>
         <h1>Flashcard {flashcard ? `#${flashcard.id}` : null} In {pack ? pack.name : null}</h1>
@@ -54,6 +46,12 @@ class SingleFlashcard extends React.Component {
     )
   }
 
+}
+
+const headingStyle = {
+  textAlign: 'center',
+  margin: '0 auto',
+  width: '50%',
 }
 
 /**
