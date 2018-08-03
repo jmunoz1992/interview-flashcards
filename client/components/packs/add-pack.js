@@ -1,6 +1,6 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {postPack} from '../store'
+import {postPack} from '../../store'
 import {Button, Modal, Form, Input} from 'semantic-ui-react'
 
 class AddPack extends React.Component {

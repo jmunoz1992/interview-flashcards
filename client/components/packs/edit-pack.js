@@ -1,6 +1,6 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {editPack} from '../store'
+import {editPack} from '../../store'
 import {Button, Modal, Form, Input} from 'semantic-ui-react'
 
 class EditPack extends React.Component {

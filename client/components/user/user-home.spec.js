@@ -1,9 +1,9 @@
 /* global describe beforeEach it */
 
 import {expect} from 'chai'
-import React from 'react'
-import enzyme, {shallow} from 'enzyme'
-import Adapter from 'enzyme-adapter-react-16'
+import React from '../../../../../../Library/Caches/typescript/2.9/node_modules/@types/react'
+import enzyme, {shallow} from '../../../../../../Library/Caches/typescript/2.9/node_modules/@types/enzyme'
+import Adapter from '../../../../../../Library/Caches/typescript/2.9/node_modules/@types/enzyme-adapter-react-16'
 import {UserHome} from './user-home'
 
 const adapter = new Adapter()

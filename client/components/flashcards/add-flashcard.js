@@ -1,6 +1,6 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {postFlashcard} from '../store'
+import {postFlashcard} from '../../store'
 import {Button, Modal, Form, Input} from 'semantic-ui-react'
 
 class AddFlashcard extends React.Component {

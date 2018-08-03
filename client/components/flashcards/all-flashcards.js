@@ -1,8 +1,8 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {fetchFlashcards, fetchPacks} from '../store'
+import {fetchFlashcards, fetchPacks} from '../../store'
 import { Link } from 'react-router-dom'
-import {AddFlashcard} from './index'
+import {AddFlashcard} from '../index'
 
 /**
  * COMPONENT

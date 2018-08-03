@@ -1,6 +1,6 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {updateThisFlashcard} from '../store'
+import {updateThisFlashcard} from '../../store'
 import {Button, Modal, Form, Input} from 'semantic-ui-react'
 
 class EditFlashcard extends React.Component {

@@ -1,9 +1,9 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {fetchPacks, deletePack, postPack} from '../store'
+import {fetchPacks, deletePack, postPack} from '../../store'
 import {Button} from 'semantic-ui-react'
 import { Link } from 'react-router-dom'
-import {EditPack, AddPack} from './index'
+import {EditPack, AddPack} from '../index'
 
 /**
  * COMPONENT

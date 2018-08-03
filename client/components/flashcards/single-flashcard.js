@@ -1,9 +1,9 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {fetchPacks, fetchFlashcards, deleteFlashcard} from '../store'
+import {fetchPacks, fetchFlashcards, deleteFlashcard} from '../../store'
 import {Card, Button} from 'semantic-ui-react'
-import {EditFlashcard} from './index'
-import history from '../history'
+import {EditFlashcard} from '../index'
+import history from '../../history'
 
 class SingleFlashcard extends React.Component {
   constructor(props){
