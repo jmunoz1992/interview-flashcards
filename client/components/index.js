@@ -12,6 +12,7 @@ export {default as EachFlashcard} from './each-flashcard'
 export {default as AddFlashcard} from './add-flashcard'
 // export {default as EachFlashcard} from './each-flashcard'
 export {default as SingleFlashcard} from './single-flashcard'
+export {default as EditFlashcard} from './edit-flashcard'
 
 export {default as AllPacks} from './all-packs'
 export {default as EditPack} from './edit-pack'

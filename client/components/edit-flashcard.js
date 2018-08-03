@@ -21,35 +21,40 @@ class EditFlashcard extends React.Component {
 
   editThisFlashcard = (evt) => {
     evt.preventDefault();
-    const cardToUpdate = this.props.flashcards.filter(flashcard => flashcard.id === +evt.target.id.value)
     this.props.updateFlashcard({
       id: +evt.target.id.value,
       question: evt.target.question.value,
       answer: evt.target.answer.value,
-      type: cardToUpdate[0].type
+      type: this.props.flashcard.type
     });
     this.closeEditModal();
   }
 
   render() {
+    const {flashcard} = this.props
     return (
       <div>
-      <Modal trigger={<Button onClick={this.openEditModal}>Edit This Flashcard</Button>} open={this.state.editModalOpen}>
-        <Form onSubmit={this.editThisFlashcard}>
-          <Modal.Content>
-            <Modal.Description>
-              Id: <Input name="id" value={this.props.flashcard.id} />
-              <br />
-              <br />
-              Question: <Input name="question" placeholder={this.props.flashcard.question} />
-              <br />
-              <br />
-              Answer: <Input name="answer" placeholder={this.props.flashcard.answer} />
-            </Modal.Description>
-          </Modal.Content>
-          <Button  type="submit" content="Submit" color="green"/>
-        </Form>
-      </Modal>
+      {flashcard ?
+      <div>
+        <Modal trigger={<Button color="blue" onClick={this.openEditModal}>Edit This Flashcard</Button>} open={this.state.editModalOpen}>
+          <Form onSubmit={this.editThisFlashcard}>
+            <Modal.Content>
+              <Modal.Description>
+                Id: <Input name="id" value={this.props.flashcard.id} />
+                <br />
+                <br />
+                Question: <Input name="question" placeholder={this.props.flashcard.question} />
+                <br />
+                <br />
+                Answer: <Input name="answer" placeholder={this.props.flashcard.answer} />
+              </Modal.Description>
+            </Modal.Content>
+            <Button  type="submit" content="Submit" color="green"/>
+          </Form>
+        </Modal>
+      </div>
+      : null
+      }
       </div>
     )
   }
@@ -62,7 +67,7 @@ class EditFlashcard extends React.Component {
 
 const mapDispatch = dispatch => {
   return {
-    updatePack(flashcard) {
+    updateFlashcard(flashcard) {
       dispatch(updateThisFlashcard(flashcard))
     }
   }

@@ -48,9 +48,10 @@ class AllPacks extends React.Component {
     const mainStyle = {
       display: 'flex',
       flexWrap: 'wrap',
+      justifyContent: 'space-between'
     }
     const packStyle = {
-      margin: '5em'
+      margin: '1em'
     }
     return (
       <div>

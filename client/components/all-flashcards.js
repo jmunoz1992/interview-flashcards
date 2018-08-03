@@ -31,6 +31,7 @@ class AllFlashcards extends React.Component {
     const textStyle = {
       margin: '40% auto',
       fontSize: '15px',
+      color: 'black',
     }
     const headingStyle = {
       textAlign: 'center',

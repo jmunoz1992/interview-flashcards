@@ -1,7 +1,9 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {fetchPacks, fetchFlashcards} from '../store'
-import {Card} from 'semantic-ui-react'
+import {fetchPacks, fetchFlashcards, deleteFlashcard} from '../store'
+import {Card, Button} from 'semantic-ui-react'
+import {EditFlashcard} from './index'
+import history from '../history'
 
 class SingleFlashcard extends React.Component {
   constructor(props){
@@ -17,41 +19,49 @@ class SingleFlashcard extends React.Component {
   }
 
   toggleDescriptionClick = () => {
-    if(!this.state.active) {
-      this.setState({active: true})
-    } else {
-      this.setState({active: false})
-    }
+    (!this.state.active) ? this.setState({active: true}) : this.setState({active: false})
+  }
+
+  deleteCardClick = async () => {
+    await this.props.removeFlashcard(this.props.flashcard);
+    history.push(`/packs/${this.props.pack.id}/flashcards`)
   }
 
   render() {
     const {flashcard, pack} = this.props
+    const headingStyle = {
+      textAlign: 'center',
+      margin: '0 auto',
+      width: '50%',
+    }
+    const buttonStyle = {
+      display: 'flex',
+      flexDirection: 'row',
+    }
     return (
       <div style={headingStyle}>
         <h1>Flashcard {flashcard ? `#${flashcard.id}` : null} In {pack ? pack.name : null}</h1>
         <div style={headingStyle}>
-        {flashcard ?
-          <div>
-            <Card onClick={this.toggleDescriptionClick}>
-              <Card.Content>
-                <Card.Header>{flashcard.question}</Card.Header>
-                {this.state.active ? <Card.Description>{flashcard.answer}</Card.Description> : null}
-              </Card.Content>
-            </Card>
-          </div>
-          : null
-        }
+          {flashcard ?
+            <div>
+              <Card onClick={this.toggleDescriptionClick}>
+                <Card.Content>
+                  <Card.Header>{flashcard.question}</Card.Header>
+                  {this.state.active ? <Card.Description>{flashcard.answer}</Card.Description> : null}
+                </Card.Content>
+                </Card>
+                <div style={buttonStyle}>
+                  <EditFlashcard flashcard={flashcard}/>
+                  <Button color="red" onClick={this.deleteCardClick}>Delete This Flashcard</Button>
+                </div>
+            </div>
+            : null
+          }
         </div>
       </div>
     )
   }
 
-}
-
-const headingStyle = {
-  textAlign: 'center',
-  margin: '0 auto',
-  width: '50%',
 }
 
 /**
@@ -75,6 +85,9 @@ const mapDispatch = dispatch => {
     },
     getPacks() {
       dispatch(fetchPacks())
+    },
+    removeFlashcard(flashcard) {
+      dispatch(deleteFlashcard(flashcard))
     },
   }
 }
