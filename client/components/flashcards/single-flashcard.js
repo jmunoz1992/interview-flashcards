@@ -38,13 +38,16 @@ class SingleFlashcard extends React.Component {
       display: 'flex',
       flexDirection: 'row',
     }
+    const cardStyle = {
+      maxWidth: '500px'
+    }
     return (
       <div style={headingStyle}>
         <h1>Flashcard {flashcard ? `#${flashcard.id}` : null} In {pack ? pack.name : null}</h1>
         <div style={headingStyle}>
           {flashcard ?
             <div>
-              <Card onClick={this.toggleDescriptionClick}>
+              <Card style={cardStyle} onClick={this.toggleDescriptionClick}>
                 <Card.Content>
                   <Card.Header>{flashcard.question}</Card.Header>
                   {this.state.active ? <Card.Description>{flashcard.answer}</Card.Description> : null}
