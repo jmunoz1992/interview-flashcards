@@ -6,11 +6,9 @@
 export {default as Navbar} from './navbar'
 
 export {default as AllFlashcards} from './flashcards/all-flashcards'
-export {default as EachFlashcard} from './flashcards/each-flashcard'
 export {default as AddFlashcard} from './flashcards/add-flashcard'
 export {default as SingleFlashcard} from './flashcards/single-flashcard'
 export {default as EditFlashcard} from './flashcards/edit-flashcard'
-// export {default as EachFlashcard} from './each-flashcard'
 
 export {default as AllPacks} from './packs/all-packs'
 export {default as EditPack} from './packs/edit-pack'
