@@ -1,15 +1,19 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import {fetchPacks, fetchFlashcards, deleteFlashcard} from '../../store'
-import {Card, Button} from 'semantic-ui-react'
+import {Card, Button, TextArea, Form, Message} from 'semantic-ui-react'
 import {EditFlashcard} from '../index'
 import history from '../../history'
+import { combineReducers } from 'redux';
 
 class SingleFlashcard extends React.Component {
   constructor(props){
     super(props);
     this.state = {
       active: false,
+      inputAnswer: "",
+      correctAnswer: "",
+      submitted: false,
     }
   }
 
@@ -27,8 +31,27 @@ class SingleFlashcard extends React.Component {
     history.push(`/packs/${this.props.pack.id}/flashcards`)
   }
 
+  handleChange = (evt) => {
+    this.setState({inputAnswer: evt.target.value})
+  }
+
+  handleSubmit = (evt) => {
+    evt.preventDefault()
+    const flashcardAnswer = this.props.flashcard.answer
+    const inputAnswer = this.state.inputAnswer
+    if(flashcardAnswer === inputAnswer) {
+      this.setState({correctAnswer: true})
+    } else {
+      this.setState({correctAnswer: false})
+    }
+    this.setState({submitted: true})
+  }
+
   render() {
     const {flashcard, pack} = this.props
+    const {correctAnswer, inputAnswer, submitted} = this.state
+    console.log('input answer ', inputAnswer.length)
+    console.log('correct answer ', correctAnswer.length)
     const headingStyle = {
       textAlign: 'center',
       margin: '0 auto',
@@ -38,8 +61,12 @@ class SingleFlashcard extends React.Component {
       display: 'flex',
       flexDirection: 'row',
     }
+    const submitStyle = {
+      width: '100%'
+    }
     const cardStyle = {
-      maxWidth: '500px'
+      maxWidth: '500px',
+      marginLeft: '20px'
     }
     return (
       <div style={headingStyle}>
@@ -52,11 +79,24 @@ class SingleFlashcard extends React.Component {
                   <Card.Header>{flashcard.question}</Card.Header>
                   {this.state.active ? <Card.Description>{flashcard.answer}</Card.Description> : null}
                 </Card.Content>
-                </Card>
-                <div style={buttonStyle}>
-                  <EditFlashcard flashcard={flashcard}/>
-                  <Button color="red" onClick={this.deleteCardClick}>Delete This Flashcard</Button>
-                </div>
+              </Card>
+              <Form onSubmit={this.handleSubmit}>
+                <TextArea autoHeight placeholder='Insert answer here' style={{ minHeight: 100, width: "300px" }} onChange={this.handleChange}/>
+                <br /><br />
+                {submitted ?
+                  <div>
+                  {correctAnswer ?
+                    <Message positive>YOU GOT IT</Message> :
+                    <Message negative>TRY AGAIN</Message>}
+                  </div>
+                  : null}
+                <Button type="submit" color="green" style={submitStyle}>Submit</Button>
+                <br /><br />
+              </Form>
+              <div style={buttonStyle}>
+                <EditFlashcard flashcard={flashcard}/>
+                <Button color="red" onClick={this.deleteCardClick}>Delete This Flashcard</Button>
+              </div>
             </div>
             : null
           }
