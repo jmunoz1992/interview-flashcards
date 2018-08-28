@@ -3,7 +3,6 @@ import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
 import {logout} from '../store'
-import { StatisticLabel } from '../../node_modules/semantic-ui-react';
 
 const Navbar = ({handleClick, isLoggedIn, user}) => {
   const leftNav = {
@@ -18,20 +17,24 @@ const Navbar = ({handleClick, isLoggedIn, user}) => {
   const h3Style = {
     margin: '0.5em 0.75em'
   }
+  const homeLogoutStyle = {
+    margin: '0.5em 0.75em',
+    color: 'blue'
+  }
   return (
     <div>
       <nav>
       {isLoggedIn ? (
         <div id="full-nav">
           <div style={leftNav}>
-            <Link style={h3Style} to="/">Home</Link>
+            <Link style={homeLogoutStyle} to="/">Home</Link>
           </div>
           <div style={rightNav}>
             <h3 style={h3Style}>Welcome {user.email}</h3>
             <h3 style={h3Style}>Total Points: {user.totalPoints}</h3>
-            <h3 style={h3Style} onClick={handleClick}>
+            <a style={homeLogoutStyle} onClick={handleClick}>
               Logout
-            </h3>
+            </a>
           </div>
         </div>
       ) : (

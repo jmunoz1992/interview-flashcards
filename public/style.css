@@ -31,3 +31,7 @@ form div {
 #full-nav {
   display: flex;
 }
+
+a {
+  font-size: 1.35em;
+}
