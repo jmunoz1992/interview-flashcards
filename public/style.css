@@ -35,3 +35,13 @@ form div {
 a {
   font-size: 1.35em;
 }
+
+#leftArrow {
+  margin-right: 25px;
+  margin-top: 4px;
+  height: 35px
+}
+
+#leftArrow:hover {
+  transform: scale(1);
+}

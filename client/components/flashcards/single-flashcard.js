@@ -1,7 +1,7 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import {fetchPacks, fetchFlashcards, deleteFlashcard, updatePoints} from '../../store'
-import {Card, Button, TextArea, Form, Message} from 'semantic-ui-react'
+import {Card, Button, TextArea, Form, Message, Icon} from 'semantic-ui-react'
 import {EditFlashcard} from '../index'
 import history from '../../history'
 
@@ -50,6 +50,14 @@ class SingleFlashcard extends React.Component {
       this.setState({correctAnswer: false})
     }
     this.setState({submitted: true})
+  }
+
+  backClick = () => {
+    console.log('back clickinnn')
+  }
+
+  forwardClick = () => {
+    console.log('forward clickinnn')
   }
 
   render() {
@@ -102,8 +110,10 @@ class SingleFlashcard extends React.Component {
                 <br /><br />
               </Form>
               <div style={buttonStyle}>
+                <Icon id="leftArrow" name="arrow circle left" size="big" onClick={this.backClick}/>
                 <EditFlashcard flashcard={flashcard}/>
                 <Button color="red" onClick={this.deleteCardClick}>Delete This Flashcard</Button>
+                <Icon style={{marginLeft: "25px", marginTop: "4px", height:"20px"}} name="arrow circle right" size="big" onClick={this.forwardClick}/>
               </div>
             </div>
             : null
