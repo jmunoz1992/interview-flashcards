@@ -40,14 +40,16 @@ class SingleFlashcard extends React.Component {
     const inputAnswer = this.state.inputAnswer
     if(flashcardAnswer === inputAnswer) {
       this.setState({correctAnswer: true})
+      if(this.props.user.id) {
+        this.props.updateUserPoints({
+          id: this.props.user.id,
+          totalPoints: this.props.user.totalPoints + 1
+        });
+      }
     } else {
       this.setState({correctAnswer: false})
     }
     this.setState({submitted: true})
-    this.props.updateUserPoints({
-      id: this.props.user.id,
-      totalPoints: 69
-    });
   }
 
   render() {
@@ -56,18 +58,23 @@ class SingleFlashcard extends React.Component {
     const headingStyle = {
       textAlign: 'center',
       margin: '0 auto',
-      width: '50%',
+      width: '80%',
     }
     const buttonStyle = {
       display: 'flex',
       flexDirection: 'row',
+      justifyContent: 'center'
     }
     const submitStyle = {
       width: '100%'
     }
     const cardStyle = {
-      maxWidth: '500px',
-      marginLeft: '20px'
+      width: '1000px',
+      // marginLeft: '20px'
+    }
+    const textBoxStyle = {
+      minHeight: 100,
+      width: "820px"
     }
     return (
       <div style={headingStyle}>
@@ -82,7 +89,7 @@ class SingleFlashcard extends React.Component {
                 </Card.Content>
               </Card>
               <Form onSubmit={this.handleSubmit}>
-                <TextArea autoHeight placeholder='Insert answer here' style={{ minHeight: 100, width: "300px" }} onChange={this.handleChange}/>
+                <TextArea autoHeight placeholder='Insert answer here' style={textBoxStyle} onChange={this.handleChange}/>
                 <br /><br />
                 {submitted ?
                   <div>
