@@ -26,6 +26,9 @@ const User = db.define('user', {
   },
   googleId: {
     type: Sequelize.STRING
+  },
+  totalPoints: {
+    type: Sequelize.INTEGER
   }
 })
 

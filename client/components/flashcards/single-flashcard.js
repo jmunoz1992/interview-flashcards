@@ -1,10 +1,9 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {fetchPacks, fetchFlashcards, deleteFlashcard} from '../../store'
+import {fetchPacks, fetchFlashcards, deleteFlashcard, updatePoints} from '../../store'
 import {Card, Button, TextArea, Form, Message} from 'semantic-ui-react'
 import {EditFlashcard} from '../index'
 import history from '../../history'
-import { combineReducers } from 'redux';
 
 class SingleFlashcard extends React.Component {
   constructor(props){
@@ -45,13 +44,15 @@ class SingleFlashcard extends React.Component {
       this.setState({correctAnswer: false})
     }
     this.setState({submitted: true})
+    this.props.updateUserPoints({
+      id: this.props.user.id,
+      totalPoints: 69
+    });
   }
 
   render() {
     const {flashcard, pack} = this.props
     const {correctAnswer, inputAnswer, submitted} = this.state
-    console.log('input answer ', inputAnswer.length)
-    console.log('correct answer ', correctAnswer.length)
     const headingStyle = {
       textAlign: 'center',
       margin: '0 auto',
@@ -115,9 +116,11 @@ const mapState = state => {
   const packNum = +(window.location.pathname.split('/')[2]);
   const flashcard = state.flashcards.filter(thisFlashcard => thisFlashcard.id === flashcardId)[0];
   const pack = state.packs.filter(thisPack => thisPack.id === packNum)[0];
+  const user = state.user
   return {
     flashcard,
-    pack
+    pack,
+    user
   }
 }
 
@@ -132,6 +135,9 @@ const mapDispatch = dispatch => {
     removeFlashcard(flashcard) {
       dispatch(deleteFlashcard(flashcard))
     },
+    updateUserPoints(user) {
+      dispatch(updatePoints(user))
+    }
   }
 }
 

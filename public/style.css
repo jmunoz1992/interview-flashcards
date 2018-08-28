@@ -31,18 +31,3 @@ form div {
 #full-nav {
   display: flex;
 }
-
-#left-nav {
- flex-grow: 30;
-}
-
-#right-nav {
-  flex-grow: 1;
-  vertical-align: middle;
-  text-align: center;
-}
-
-#welcome-email {
-  margin-top: 15px;
-  display: inline;
-}

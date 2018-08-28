@@ -5,20 +5,33 @@ import {Link} from 'react-router-dom'
 import {logout} from '../store'
 import { StatisticLabel } from '../../node_modules/semantic-ui-react';
 
-const Navbar = ({handleClick, isLoggedIn, user}) => (
-  <div>
-    <nav>
+const Navbar = ({handleClick, isLoggedIn, user}) => {
+  const leftNav = {
+    flexGrow: 1,
+    display: "flex"
+  }
+  const rightNav = {
+    flexGrow: 1,
+    display: "flex",
+    justifyContent: "flex-end"
+  }
+  const h3Style = {
+    margin: '0.5em 0.75em'
+  }
+  return (
+    <div>
+      <nav>
       {isLoggedIn ? (
         <div id="full-nav">
-          {/* The navbar will show these links after you log in */}
-          <div id="left-nav">
-            <Link to="/">Home</Link>
+          <div style={leftNav}>
+            <Link style={h3Style} to="/">Home</Link>
           </div>
-          <div id="right-nav">
-            <h3 id="welcome-email">Welcome {user.email}</h3>
-            <a href="#" onClick={handleClick}>
+          <div style={rightNav}>
+            <h3 style={h3Style}>Welcome {user.email}</h3>
+            <h3 style={h3Style}>Total Points: {user.totalPoints}</h3>
+            <h3 style={h3Style} onClick={handleClick}>
               Logout
-            </a>
+            </h3>
           </div>
         </div>
       ) : (
@@ -31,7 +44,8 @@ const Navbar = ({handleClick, isLoggedIn, user}) => (
     </nav>
     <hr />
   </div>
-)
+  )
+}
 
 /**
  * CONTAINER

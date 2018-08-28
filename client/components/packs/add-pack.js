@@ -31,7 +31,7 @@ class AddPack extends React.Component {
   render() {
     return (
       <div>
-        <Modal trigger={<Button onClick={this.openModal}>Add A New Pack</Button>} open={this.state.modalOpen}>
+        <Modal trigger={<Button color="green" onClick={this.openModal}>Add A New Pack</Button>} open={this.state.modalOpen}>
           <Form onSubmit={(evt) => this.submitNewPack(evt)}>
             <Modal.Content>
               <Modal.Description>
