@@ -1,6 +1,6 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {fetchPacks, fetchFlashcards, deleteFlashcard, updatePoints} from '../../store'
+import {fetchPacks, fetchFlashcards, deleteFlashcard, updatePoints, updateThisFlashcard} from '../../store'
 import {Card, Button, TextArea, Form, Message, Icon} from 'semantic-ui-react'
 import {EditFlashcard} from '../index'
 import history from '../../history'
@@ -35,16 +35,29 @@ class SingleFlashcard extends React.Component {
   }
 
   handleSubmit = (evt) => {
+    const {flashcard, user} = this.props
     evt.preventDefault()
-    const flashcardAnswer = this.props.flashcard.answer
+    const flashcardAnswer = flashcard.answer
     const inputAnswer = this.state.inputAnswer
     if(flashcardAnswer === inputAnswer) {
-      this.setState({correctAnswer: true})
-      if(this.props.user.id) {
-        this.props.updateUserPoints({
-          id: this.props.user.id,
-          totalPoints: this.props.user.totalPoints + 1
-        });
+      const {question, answer, type, id} = flashcard
+      if(flashcard) {
+        if(flashcard.gotCorrect === null) {
+          this.setState({correctAnswer: true})
+          this.props.updateFlashcard({
+            id,
+            question,
+            answer,
+            type,
+            gotCorrect: true,
+          })
+          if(user.id) {
+            this.props.updateUserPoints({
+              id: user.id,
+              totalPoints: user.totalPoints + 1,
+            });
+          }
+        }
       }
     } else {
       this.setState({correctAnswer: false})
@@ -62,7 +75,7 @@ class SingleFlashcard extends React.Component {
 
   render() {
     const {flashcard, pack} = this.props
-    const {correctAnswer, inputAnswer, submitted} = this.state
+    const {correctAnswer, submitted} = this.state
     const headingStyle = {
       textAlign: 'center',
       margin: '0 auto',
@@ -137,7 +150,7 @@ const mapState = state => {
   return {
     flashcard,
     pack,
-    user
+    user,
   }
 }
 
@@ -154,6 +167,9 @@ const mapDispatch = dispatch => {
     },
     updateUserPoints(user) {
       dispatch(updatePoints(user))
+    },
+    updateFlashcard(flashcard) {
+      dispatch(updateThisFlashcard(flashcard))
     }
   }
 }
