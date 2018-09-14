@@ -1,5 +1,5 @@
 const router = require('express').Router()
-const {Pack} = require('../db/models')
+const {Pack, Flashcard} = require('../db/models')
 module.exports = router
 
 router.get('/', async (req, res, next) => {
@@ -40,6 +40,11 @@ router.put('/:id', async (req, res, next) => {
 
 router.delete('/:id', async (req, res, next) => {
   try {
+    await Flashcard.destroy({
+      where: {
+        packId: req.params.id
+      }
+    })
     await Pack.destroy({
       where: {
         id: req.params.id
