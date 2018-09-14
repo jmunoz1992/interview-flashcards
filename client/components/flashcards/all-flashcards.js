@@ -3,6 +3,7 @@ import {connect} from 'react-redux'
 import {fetchFlashcards, fetchPacks} from '../../store'
 import { Link } from 'react-router-dom'
 import {AddFlashcard} from '../index'
+import {Button} from 'semantic-ui-react'
 
 /**
  * COMPONENT
@@ -47,6 +48,7 @@ class AllFlashcards extends React.Component {
               <div>
                 <br /><br />
                 <div style={headingStyle}>
+                  <Link to="/packs"><Button>Go Back To All Packs</Button></Link>
                   <AddFlashcard />
                 </div>
                 <br /><br />
