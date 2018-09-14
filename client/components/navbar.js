@@ -10,7 +10,6 @@ class Navbar extends React.Component {
   }
   render() {
     const {handleClick, isLoggedIn, user, flashcards} = this.props
-    console.log('user points ', user.totalPoints)
     const leftNav = {
       flexGrow: 1,
       display: "flex"

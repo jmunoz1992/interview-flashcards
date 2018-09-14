@@ -75,7 +75,7 @@ class SingleFlashcard extends React.Component {
   }
 
   render() {
-    const {flashcard, pack} = this.props
+    const {flashcard, flashcards, flashcardsCorrect, pack} = this.props
     const {correctAnswer, submitted} = this.state
     const headingStyle = {
       textAlign: 'center',
@@ -101,6 +101,7 @@ class SingleFlashcard extends React.Component {
     return (
       <div style={headingStyle}>
         <h1>Flashcard {flashcard ? `#${flashcard.id}` : null} In {pack ? <Link to={`/packs/${pack.id}/flashcards`}>{pack.name}</Link> : null}</h1>
+        <h4>Completed {flashcardsCorrect.length} out of {flashcards.length} flashcards in {pack ? pack.name : null} pack.</h4>
         <div style={headingStyle}>
           {flashcard ?
             <div>
@@ -147,9 +148,13 @@ const mapState = state => {
   const packNum = +(window.location.pathname.split('/')[2]);
   const flashcard = state.flashcards.filter(thisFlashcard => thisFlashcard.id === flashcardId)[0];
   const pack = state.packs.filter(thisPack => thisPack.id === packNum)[0];
+  const flashcards = state.flashcards.filter(curFlashcard => curFlashcard.packId === packNum);
+  const flashcardsCorrect = flashcards.filter(disFlashcard => disFlashcard.gotCorrect)
   const user = state.user
   return {
     flashcard,
+    flashcards,
+    flashcardsCorrect,
     pack,
     user,
   }
