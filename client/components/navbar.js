@@ -34,10 +34,10 @@ class Navbar extends React.Component {
           <div id="full-nav">
             <div style={leftNav}>
               <Link style={homeLogoutStyle} to="/">Home</Link>
+              <h3 style={h3Style}>Completed {user.totalPoints ? user.totalPoints : 0} out of {flashcards.length} flashcards</h3>
             </div>
             <div style={rightNav}>
               <h3 style={h3Style}>Welcome {user.email}</h3>
-              <h3 style={h3Style}>Completed {user.totalPoints ? user.totalPoints : 0} out of {flashcards.length} flashcards</h3>
               <a style={homeLogoutStyle} onClick={handleClick}>
                 Logout
               </a>

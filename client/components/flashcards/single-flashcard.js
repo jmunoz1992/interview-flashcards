@@ -4,6 +4,7 @@ import {fetchPacks, fetchFlashcards, deleteFlashcard, updatePoints, updateThisFl
 import {Card, Button, TextArea, Form, Message, Icon} from 'semantic-ui-react'
 import {EditFlashcard} from '../index'
 import history from '../../history'
+import { Link } from 'react-router-dom'
 
 class SingleFlashcard extends React.Component {
   constructor(props){
@@ -99,7 +100,7 @@ class SingleFlashcard extends React.Component {
     }
     return (
       <div style={headingStyle}>
-        <h1>Flashcard {flashcard ? `#${flashcard.id}` : null} In {pack ? pack.name : null}</h1>
+        <h1>Flashcard {flashcard ? `#${flashcard.id}` : null} In {pack ? <Link to={`/packs/${pack.id}/flashcards`}>{pack.name}</Link> : null}</h1>
         <div style={headingStyle}>
           {flashcard ?
             <div>
