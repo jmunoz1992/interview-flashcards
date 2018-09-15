@@ -3,7 +3,6 @@ import {connect} from 'react-redux'
 import {fetchPacks, fetchFlashcards, deleteFlashcard, updatePoints, updateThisFlashcard} from '../../store'
 import {Card, Button, TextArea, Form, Message, Icon} from 'semantic-ui-react'
 import {EditFlashcard} from '../index'
-import history from '../../history'
 import { Link } from 'react-router-dom'
 
 class SingleFlashcard extends React.Component {
@@ -24,11 +23,6 @@ class SingleFlashcard extends React.Component {
 
   toggleDescriptionClick = () => {
     (!this.state.active) ? this.setState({active: true}) : this.setState({active: false})
-  }
-
-  deleteCardClick = async () => {
-    await this.props.removeFlashcard(this.props.flashcard);
-    history.push(`/packs/${this.props.pack.id}/flashcards`)
   }
 
   handleChange = (evt) => {
@@ -82,11 +76,6 @@ class SingleFlashcard extends React.Component {
       margin: '0 auto',
       width: '80%',
     }
-    const buttonStyle = {
-      display: 'flex',
-      flexDirection: 'row',
-      justifyContent: 'center'
-    }
     const submitStyle = {
       width: '100%'
     }
@@ -97,6 +86,11 @@ class SingleFlashcard extends React.Component {
     const textBoxStyle = {
       minHeight: 100,
       width: "820px"
+    }
+    const buttonStyle = {
+      display: 'flex',
+      flexDirection: 'row',
+      justifyContent: 'center'
     }
     return (
       <div style={headingStyle}>
@@ -126,10 +120,8 @@ class SingleFlashcard extends React.Component {
                 <br /><br />
               </Form>
               <div style={buttonStyle}>
-                <Icon id="leftArrow" name="arrow circle left" size="big" onClick={this.backClick}/>
                 <EditFlashcard flashcard={flashcard}/>
                 <Button color="red" onClick={this.deleteCardClick}>Delete This Flashcard</Button>
-                <Icon style={{marginLeft: "25px", marginTop: "4px", height:"20px"}} name="arrow circle right" size="big" onClick={this.forwardClick}/>
               </div>
             </div>
             : null
@@ -168,9 +160,6 @@ const mapDispatch = dispatch => {
     },
     getPacks() {
       dispatch(fetchPacks())
-    },
-    removeFlashcard(flashcard) {
-      dispatch(deleteFlashcard(flashcard))
     },
     updateUserPoints(user) {
       dispatch(updatePoints(user))

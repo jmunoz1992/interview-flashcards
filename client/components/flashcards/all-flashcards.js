@@ -2,8 +2,10 @@ import React from 'react'
 import {connect} from 'react-redux'
 import {fetchFlashcards, fetchPacks} from '../../store'
 import { Link } from 'react-router-dom'
-import {AddFlashcard} from '../index'
+import {AddFlashcard, EditFlashcard} from '../index'
 import {Button} from 'semantic-ui-react'
+import {deleteFlashcard} from '../../store'
+import history from '../../history'
 
 /**
  * COMPONENT
@@ -12,6 +14,13 @@ class AllFlashcards extends React.Component {
   componentDidMount() {
     this.props.getFlashcards();
     this.props.getPacks();
+  }
+
+  deleteCardClick = async (evt) => {
+    evt.preventDefault()
+    const flashcard = this.props.flashcards.filter(thisFlashcard => thisFlashcard.id === +evt.target.value)[0];
+    await this.props.removeFlashcard(flashcard)
+    history.push(`/packs/${this.props.pack.id}/flashcards`)
   }
 
   render () {
@@ -39,6 +48,11 @@ class AllFlashcards extends React.Component {
       margin: '0 auto',
       width: '50%',
     }
+    const buttonStyle = {
+      display: 'flex',
+      flexDirection: 'row',
+      justifyContent: 'center'
+    }
     return (
       <div>
         <h1 style={headingStyle}>All {pack ? pack.name : null} Flashcards</h1>
@@ -63,6 +77,10 @@ class AllFlashcards extends React.Component {
                         <Link to={`/packs/${pack.id}/flashcards/${flashcard.id}`}>
                           <div style={textStyle}>{flashcard.question}</div>
                         </Link>
+                        <div style={buttonStyle}>
+                          <EditFlashcard flashcard={flashcard}/>
+                          <Button color="red" value={flashcard.id} onClick={(evt) => this.deleteCardClick(evt)}>Delete This Flashcard</Button>
+                        </div>
                       </div>)
                 })}
                 </div>
@@ -103,6 +121,9 @@ const mapDispatch = dispatch => {
     },
     getPacks() {
       dispatch(fetchPacks())
+    },
+    removeFlashcard(flashcard) {
+      dispatch(deleteFlashcard(flashcard))
     },
   }
 }
