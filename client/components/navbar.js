@@ -23,9 +23,11 @@ class Navbar extends React.Component {
       margin: '0.5em 0.75em',
       display: 'inline'
     }
-    const homeLogoutStyle = {
+    const loginLogoutStyle = {
       margin: '0.5em 0.75em',
-      color: 'blue'
+      color: 'blue',
+      justifyContent: 'center',
+      alignItems: 'center'
     }
     return (
       <div>
@@ -33,21 +35,23 @@ class Navbar extends React.Component {
         {isLoggedIn ? (
           <div id="full-nav">
             <div style={leftNav}>
-              <h3><Link style={homeLogoutStyle} to="/">All Packs</Link></h3>
+              <h3><Link style={loginLogoutStyle} to="/">All Packs</Link></h3>
               <h3 style={h3Style}>Hi {user.email}</h3>
               <h3 style={h3Style}>Completed {user.totalPoints ? user.totalPoints : 0} /{flashcards.length} total flashcards</h3>
             </div>
             <div style={rightNav}>
-              <h3><a style={homeLogoutStyle} onClick={handleClick}>
+              <h3><a style={loginLogoutStyle} onClick={handleClick}>
                 Logout
               </a></h3>
             </div>
           </div>
         ) : (
-          <div>
-            {/* The navbar will show these links before you log in */}
-            <Link to="/">Home</Link>
-            <Link to="/login">Login</Link>
+          <div id="full-nav">
+            <div style={leftNav}>
+              {/* The navbar will show these links before you log in */}
+              <Link style={loginLogoutStyle} to="/">All Packs</Link>
+              <Link style={loginLogoutStyle} to="/login">Login</Link>
+            </div>
           </div>
         )}
       </nav>
