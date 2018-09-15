@@ -20,7 +20,8 @@ class Navbar extends React.Component {
       justifyContent: "flex-end"
     }
     const h3Style = {
-      margin: '0.5em 0.75em'
+      margin: '0.5em 0.75em',
+      display: 'inline'
     }
     const homeLogoutStyle = {
       margin: '0.5em 0.75em',
@@ -32,14 +33,14 @@ class Navbar extends React.Component {
         {isLoggedIn ? (
           <div id="full-nav">
             <div style={leftNav}>
-              <Link style={homeLogoutStyle} to="/">Home</Link>
-              <h3 style={h3Style}>Completed {user.totalPoints ? user.totalPoints : 0} out of {flashcards.length} flashcards</h3>
+              <h3><Link style={homeLogoutStyle} to="/">All Packs</Link></h3>
+              <h3 style={h3Style}>Hi {user.email}</h3>
+              <h3 style={h3Style}>Completed {user.totalPoints ? user.totalPoints : 0} /{flashcards.length} total flashcards</h3>
             </div>
             <div style={rightNav}>
-              <h3 style={h3Style}>Welcome {user.email}</h3>
-              <a style={homeLogoutStyle} onClick={handleClick}>
+              <h3><a style={homeLogoutStyle} onClick={handleClick}>
                 Logout
-              </a>
+              </a></h3>
             </div>
           </div>
         ) : (

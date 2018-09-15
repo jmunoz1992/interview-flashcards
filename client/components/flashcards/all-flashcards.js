@@ -55,6 +55,7 @@ class AllFlashcards extends React.Component {
       position: "relative",
       bottom: "0",
     }
+
     return (
       <div>
         <h1 style={headingStyle}>All {pack ? pack.name : null} Flashcards</h1>
