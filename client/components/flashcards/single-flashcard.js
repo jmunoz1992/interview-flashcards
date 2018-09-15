@@ -81,7 +81,6 @@ class SingleFlashcard extends React.Component {
     }
     const cardStyle = {
       width: '1000px',
-      // marginLeft: '20px'
     }
     const textBoxStyle = {
       minHeight: 100,
@@ -119,10 +118,6 @@ class SingleFlashcard extends React.Component {
                 <Button type="submit" color="green" style={submitStyle}>Submit</Button>
                 <br /><br />
               </Form>
-              <div style={buttonStyle}>
-                <EditFlashcard flashcard={flashcard}/>
-                <Button color="red" onClick={this.deleteCardClick}>Delete This Flashcard</Button>
-              </div>
             </div>
             : null
           }

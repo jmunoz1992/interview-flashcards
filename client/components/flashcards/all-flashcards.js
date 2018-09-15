@@ -51,7 +51,9 @@ class AllFlashcards extends React.Component {
     const buttonStyle = {
       display: 'flex',
       flexDirection: 'row',
-      justifyContent: 'center'
+      justifyContent: 'center',
+      position: "relative",
+      bottom: "0",
     }
     return (
       <div>
