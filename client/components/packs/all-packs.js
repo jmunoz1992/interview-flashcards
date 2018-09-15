@@ -53,6 +53,11 @@ class AllPacks extends React.Component {
     const packStyle = {
       margin: '1em'
     }
+    const headingStyle = {
+      textAlign: 'center',
+      margin: '0 auto',
+      width: '50%',
+    }
     return (
       <div>
         <div style={divStyle}>
@@ -81,7 +86,12 @@ class AllPacks extends React.Component {
               })
              }
              </div>
-             : null
+             :
+             <div style={headingStyle}>
+              <br /><br />
+              <h3>There are currently no flashcards in here. Add a Pack.</h3>
+              <br /><br />
+            </div>
           }
       </div>
     )
