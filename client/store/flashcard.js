@@ -11,22 +11,22 @@ const UPDATE_FLASHCARD = 'UPDATE_FLASHCARD'
 /**
  * ACTION CREATORS
  */
-const getFlashcards = (flashcards) => ({
+export const getFlashcards = (flashcards) => ({
   type: GET_FLASHCARDS,
   flashcards
 })
 
-const addFlashcard = (flashcard) => ({
+export const addFlashcard = (flashcard) => ({
   type: ADD_FLASHCARD,
   flashcard
 })
 
-const removeFlashcard = (flashcard) => ({
+export const removeFlashcard = (flashcard) => ({
   type: REMOVE_FLASHCARD,
   flashcard
 })
 
-const updateFlashcard = (flashcard) => ({
+export const updateFlashcard = (flashcard) => ({
   type: UPDATE_FLASHCARD,
   flashcard
 })
@@ -73,7 +73,7 @@ export const updateThisFlashcard = (flashcard) => async dispatch => {
 /**
  * INITIAL STATE
  */
-const defaultFlashcards = []
+export const defaultFlashcards = []
 
 /**
  * REDUCER

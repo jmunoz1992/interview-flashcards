@@ -1,4 +1,5 @@
 import axios from 'axios'
+import {defaultFlashcards} from './flashcard'
 
 /**
  * ACTION TYPES

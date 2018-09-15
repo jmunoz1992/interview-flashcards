@@ -2,14 +2,14 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
-import {logout, fetchFlashcards} from '../store'
+import {logout, fetchFlashcards, me} from '../store'
 
 class Navbar extends React.Component {
   componentDidMount() {
     this.props.getFlashcards();
   }
   render() {
-    const {handleClick, isLoggedIn, user, flashcards} = this.props
+    const {handleClick, isLoggedIn, user, flashcards, correctFlashcards} = this.props
     const leftNav = {
       flexGrow: 1,
       display: "flex"
@@ -37,7 +37,7 @@ class Navbar extends React.Component {
             <div style={leftNav}>
               <h3><Link style={loginLogoutStyle} to="/">All Packs</Link></h3>
               <h3 style={h3Style}>Hi {user.email}</h3>
-              <h3 style={h3Style}>Completed {user.totalPoints ? user.totalPoints : 0} /{flashcards.length} total flashcards</h3>
+              <h3 style={h3Style}>Completed {correctFlashcards.length ? correctFlashcards.length : 0} /{flashcards.length} total flashcards</h3>
             </div>
             <div style={rightNav}>
               <h3><a style={loginLogoutStyle} onClick={handleClick}>
@@ -65,7 +65,9 @@ class Navbar extends React.Component {
  * CONTAINER
  */
 const mapState = state => {
+  const correctFlashcards = state.flashcards.filter(flashcard => flashcard.gotCorrect)
   return {
+    correctFlashcards,
     isLoggedIn: !!state.user.id,
     user: state.user,
     flashcards: state.flashcards

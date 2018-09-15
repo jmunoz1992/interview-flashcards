@@ -1,6 +1,6 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {fetchPacks, deletePack, postPack} from '../../store'
+import {fetchPacks, deletePack, postPack, me} from '../../store'
 import {Button} from 'semantic-ui-react'
 import { Link } from 'react-router-dom'
 import {EditPack, AddPack} from '../index'
@@ -16,6 +16,7 @@ class AllPacks extends React.Component {
   deletePackClick = (evt) => {
     const packToDelete = this.props.packs.filter(pack => pack.id === +evt.target.value)
     this.props.removePack(packToDelete[0]);
+    this.props.updateUser();
   }
 
   submitNewPack = (evt) => {
@@ -118,6 +119,9 @@ const mapDispatch = dispatch => {
     addPack(pack) {
       dispatch(postPack(pack))
     },
+    updateUser() {
+      dispatch(me())
+    }
   }
 }
 

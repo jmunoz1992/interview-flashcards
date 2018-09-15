@@ -1,5 +1,5 @@
 const router = require('express').Router()
-const {Flashcard, Pack} = require('../db/models')
+const {Flashcard, Pack, User} = require('../db/models')
 module.exports = router
 
 router.get('/', async (req, res, next) => {
@@ -52,9 +52,20 @@ router.put('/:id', async (req, res, next) => {
 
 router.delete('/:id', async (req, res, next) => {
   try {
+    const id = req.params.id
+    const flashcard = await Flashcard.findById(id)
+    if(flashcard.gotCorrect) {
+      await User.update({
+        totalPoints: req.user.totalPoints - 1
+      }, {
+        where: {
+          id: req.user.id
+        }
+      })
+    }
     await Flashcard.destroy({
       where: {
-        id: req.params.id
+        id
       }
     })
     res.status(204).send('this flashcard has been destroyed')
