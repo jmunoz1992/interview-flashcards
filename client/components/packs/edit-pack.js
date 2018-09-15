@@ -1,7 +1,7 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import {editPack} from '../../store'
-import {Button, Modal, Form, Input} from 'semantic-ui-react'
+import {Button, Modal, Form, Input, Label} from 'semantic-ui-react'
 
 class EditPack extends React.Component {
   constructor(props){
@@ -32,18 +32,22 @@ class EditPack extends React.Component {
     return (
       <div>
         <Modal trigger={<Button color= "blue" onClick={this.openEditModal}>Edit This Pack</Button>} open={this.state.editModalOpen}>
+          <Modal.Header>Edit The Below Pack Name</Modal.Header>
           <Form onSubmit={(evt) => this.editPackClick(evt)}>
             <Modal.Content>
               <Modal.Description>
-                Id: <Input name="id" value={this.props.pack.id} />
+                <Label>Id: </Label>
+                <Input name="id" value={this.props.pack.id} />
                 <br />
                 <br />
-                Name: <Input name="name" placeholder={this.props.pack.name} />
+                <Label>Edit The Pack Name </Label>
+                <Input name="name" placeholder={this.props.pack.name} />
                 <br />
                 <br />
               </Modal.Description>
+              <br /><br />
+              <Button type="submit" content="Submit" color="green"/>
             </Modal.Content>
-            <Button type="submit" content="Submit" color="green"/>
           </Form>
         </Modal>
       </div>
