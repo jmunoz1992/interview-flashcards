@@ -1,7 +1,7 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import {postFlashcard} from '../../store'
-import {Button, Modal, Form, Input} from 'semantic-ui-react'
+import {Button, Modal, Form, TextArea, Label} from 'semantic-ui-react'
 
 class AddFlashcard extends React.Component {
   constructor(props){
@@ -36,15 +36,20 @@ class AddFlashcard extends React.Component {
     return (
       <div>
       <Modal trigger={<Button color="green" onClick={this.openModal}>Add A New Flashcard</Button>} open={this.state.modalOpen}>
+        <Modal.Header>Please Add A Question & Answer</Modal.Header>
         <Form onSubmit={this.submitNewFlashcard}>
           <Modal.Content>
             <Modal.Description>
-              Question: <Input name="question" placeholder='Insert question here' />
-              <br />
-              Answer: <Input name="answer" placeholder='Answer' />
+              <Label>Insert Question Below:</Label>
+              <TextArea name="question" placeholder='Insert question here' />
+              <br /><br />
+              <Label>Insert Answer Below:</Label>
+              <TextArea name="answer" placeholder='Insert answer here' />
             </Modal.Description>
+            <br /><br />
+            <Button type="submit" content="Submit" color="green"/>
           </Modal.Content>
-          <Button type="submit" content="Submit" color="green"/>
+
         </Form>
       </Modal>
       </div>
