@@ -1,7 +1,7 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import {updateThisFlashcard} from '../../store'
-import {Button, Modal, Form, Input} from 'semantic-ui-react'
+import {Button, Modal, Form, TextArea, Label, Input} from 'semantic-ui-react'
 
 class EditFlashcard extends React.Component {
   constructor(props){
@@ -37,19 +37,24 @@ class EditFlashcard extends React.Component {
       {flashcard ?
       <div>
         <Modal trigger={<Button color="blue" onClick={this.openEditModal}>Edit This Flashcard</Button>} open={this.state.editModalOpen}>
+          <Modal.Header>Edit The Below Question & Answer</Modal.Header>
           <Form onSubmit={this.editThisFlashcard}>
             <Modal.Content>
               <Modal.Description>
-                Id: <Input name="id" value={this.props.flashcard.id} />
+                <Label>Id:</Label>
+                <Input name="id" value={this.props.flashcard.id} />
                 <br />
                 <br />
-                Question: <Input name="question" placeholder={this.props.flashcard.question} />
+                <Label>Edit The Below Question</Label>
+                <TextArea name="question" placeholder={this.props.flashcard.question} />
                 <br />
                 <br />
-                Answer: <Input name="answer" placeholder={this.props.flashcard.answer} />
+                <Label>Edit The Below Answer</Label>
+                <TextArea name="answer" placeholder={this.props.flashcard.answer} />
               </Modal.Description>
+              <br /><br />
+              <Button  type="submit" content="Submit" color="green"/>
             </Modal.Content>
-            <Button  type="submit" content="Submit" color="green"/>
           </Form>
         </Modal>
       </div>
