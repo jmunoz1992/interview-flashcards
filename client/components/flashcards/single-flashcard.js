@@ -100,7 +100,8 @@ class SingleFlashcard extends React.Component {
     }
     return (
       <div style={headingStyle}>
-        <h1>Flashcard {flashcard ? `#${flashcard.id}` : null} In {pack ? <Link to={`/packs/${pack.id}/flashcards`}>{pack.name}</Link> : null}</h1>
+        <h1>Flashcard {flashcard ? `#${flashcard.id}` : null} In {pack ? pack.name: null}</h1>
+        <Button><Link to={`/packs/${pack ? pack.id : null}/flashcards`}>Go to all {pack ? pack.name : null} flashcards</Link></Button>
         <h4>Completed {flashcardsCorrect.length} out of {flashcards.length} flashcards in {pack ? pack.name : null} pack.</h4>
         <div style={headingStyle}>
           {flashcard ?

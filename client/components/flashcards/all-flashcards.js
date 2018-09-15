@@ -42,13 +42,16 @@ class AllFlashcards extends React.Component {
     return (
       <div>
         <h1 style={headingStyle}>All {pack ? pack.name : null} Flashcards</h1>
+        <br /><br />
+        <div style={headingStyle}>
+          <Link to="/packs"><Button>Go Back To All Packs</Button></Link>
+        </div>
         <div>
           <div>
             {flashcards.length && pack ?
               <div>
-                <br /><br />
+                <br />
                 <div style={headingStyle}>
-                  <Link to="/packs"><Button>Go Back To All Packs</Button></Link>
                   <AddFlashcard />
                 </div>
                 <br /><br />
