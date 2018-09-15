@@ -1,7 +1,7 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import {postPack} from '../../store'
-import {Button, Modal, Form, Input} from 'semantic-ui-react'
+import {Button, Modal, Form, Input, Label} from 'semantic-ui-react'
 
 class AddPack extends React.Component {
   constructor(props){
@@ -32,14 +32,17 @@ class AddPack extends React.Component {
     return (
       <div>
         <Modal trigger={<Button color="green" onClick={this.openModal}>Add A New Pack</Button>} open={this.state.modalOpen}>
+          <Modal.Header>Add A New Pack</Modal.Header>
           <Form onSubmit={(evt) => this.submitNewPack(evt)}>
             <Modal.Content>
               <Modal.Description>
-                Pack Name: <Input name="name" placeholder='Insert pack name here' />
+                <Label>Pack Name:</Label>
+                <Input name="name" placeholder='Insert pack name here' />
                 <br />
               </Modal.Description>
+              <br /><br />
+              <Button type="submit" content="Submit" color="green"/>
             </Modal.Content>
-            <Button type="submit" content="Submit" color="green"/>
           </Form>
         </Modal>
       </div>
